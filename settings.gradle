@@ -1,0 +1,10 @@
+rootProject.name = 'sns'
+
+include 'order:order-adapter'
+include 'order:order-application'
+
+include 'first-benefit:first-benefit-adapter'
+include 'first-benefit:first-benefit-application'
+
+include 'second-benefit:second-benefit-adapter'
+include 'second-benefit:second-benefit-application'
