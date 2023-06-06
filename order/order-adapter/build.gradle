@@ -1,4 +1,5 @@
 dependencies {
+    implementation project(':order:order-domain')
     implementation project(':order:order-application')
 
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'

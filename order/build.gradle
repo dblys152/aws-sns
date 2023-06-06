@@ -7,7 +7,8 @@ plugins {
 
 def javaProjects = [
         project(":order:order-adapter"),
-        project(":order:order-application")
+        project(":order:order-application"),
+        project(":order:order-domain")
 ]
 def springBootProjects = [
         project(":order:order-adapter"),
@@ -27,6 +28,8 @@ configure(javaProjects) {
     dependencies {
         implementation 'org.hibernate:hibernate-validator:6.2.0.Final'
         implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+        implementation 'com.fasterxml.uuid:java-uuid-generator:4.1.0'
+        implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
 
         if (!springBootProjects.contains(project)) {
             testImplementation(platform('org.junit:junit-bom:5.7.1'))
@@ -44,6 +47,10 @@ configure(springBootProjects) {
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-validation'
         implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework:spring-tx:6.0.9'
+
+        implementation 'io.awspring.cloud:spring-cloud-starter-aws-messaging:2.4.3'
+        implementation 'software.amazon.awssdk:sqs:2.20.78'
 
         testImplementation "org.springframework.boot:spring-boot-starter-test"
     }
@@ -52,6 +59,7 @@ configure(springBootProjects) {
 bootJar {
     enabled(false)
 }
+
 jar {
     enabled(true)
 }

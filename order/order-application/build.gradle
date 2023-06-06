@@ -1,0 +1,7 @@
+dependencies {
+    implementation project(':order:order-domain')
+}
+
+bootJar {
+    enabled(false)
+}
