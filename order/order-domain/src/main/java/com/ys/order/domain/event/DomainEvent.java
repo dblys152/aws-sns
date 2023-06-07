@@ -2,27 +2,25 @@ package com.ys.order.domain.event;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 
-@Getter
+@Data
+@NoArgsConstructor
 @Slf4j
 public class DomainEvent<T> {
 
-    private final String type;
-    private final String occurredAt;
-    private final T payload;
+    private String type;
+    private String occurredAt;
+    private T payload;
 
     public DomainEvent(String type, T payload) {
         this.type = type;
         this.occurredAt = LocalDateTime.now().toString();
         this.payload = payload;
-    }
-
-    public String serialize() throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(this);
     }
 }

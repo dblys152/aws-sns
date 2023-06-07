@@ -28,9 +28,12 @@ public class OrderCommandService implements CompleteOrderUseCase {
                 LocalDateTime.now()
         );
 
-        OrderCompletedEvent orderCompletedEvent = OrderCompletedEvent.fromDomain(completedOrder);
-        DomainEvent<OrderCompletedEvent> event = new DomainEvent(orderCompletedEvent.getClass().getName(), orderCompletedEvent);
-        eventPublisher.publishEvent(event);
+        OrderCompletedEvent event = OrderCompletedEvent.fromDomain(completedOrder);
+        DomainEvent<OrderCompletedEvent> domainEvent = new DomainEvent(
+                OrderCompletedEvent.class.getName(),
+                event
+        );
+        eventPublisher.publishEvent(domainEvent);
 
         return completedOrder;
     }

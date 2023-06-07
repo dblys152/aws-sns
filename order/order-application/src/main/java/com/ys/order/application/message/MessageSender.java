@@ -1,7 +1,6 @@
 package com.ys.order.application.message;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ys.order.domain.event.DomainEvent;
 import io.awspring.cloud.messaging.core.QueueMessagingTemplate;
 import lombok.RequiredArgsConstructor;
@@ -13,13 +12,13 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class MessageSender {
 
+    private final Serializer<DomainEvent> serializer;
     private final QueueMessagingTemplate queueMessagingTemplate;
     private final Mapping mapping;
 
     public void sendSqs(MessageEnvelop<String> message) {
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            DomainEvent domainEvent = objectMapper.readValue(message.getPayload(), DomainEvent.class);
+            DomainEvent domainEvent = serializer.deserialize(message.getPayload(), DomainEvent.class);
             String sqsName = domainEvent.getType();
 
             queueMessagingTemplate.convertAndSend(mapping.get(sqsName), message);
