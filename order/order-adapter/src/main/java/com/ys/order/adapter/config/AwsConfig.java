@@ -18,9 +18,9 @@ import org.springframework.context.annotation.Configuration;
 public class AwsConfig {
 
     @Value("${cloud.aws.credentials.access-key}")
-    private String AWS_ACCESS_KEY;
+    String AWS_ACCESS_KEY;
     @Value("${cloud.aws.credentials.secret-key}")
-    private String AWS_SECRET_KEY;
+    String AWS_SECRET_KEY;
     @Value("${cloud.aws.region.static}")
     String REGION;
 
@@ -35,15 +35,17 @@ public class AwsConfig {
     }
 
     @Bean
-    public NotificationMessagingTemplate getNotificationMessagingTemplate() {
+    public NotificationMessagingTemplate getNotificationMessagingTemplate(AWSCredentialsProvider awsCredentialsProvider) {
         return new NotificationMessagingTemplate(AmazonSNSAsyncClientBuilder.standard()
+                .withCredentials(awsCredentialsProvider)
                 .withRegion(REGION)
                 .build());
     }
 
     @Bean
-    public QueueMessagingTemplate getQueueMessagingTemplate() {
+    public QueueMessagingTemplate getQueueMessagingTemplate(AWSCredentialsProvider awsCredentialsProvider) {
         return new QueueMessagingTemplate(AmazonSQSAsyncClientBuilder.standard()
+                .withCredentials(awsCredentialsProvider)
                 .withRegion(REGION)
                 .build());
     }

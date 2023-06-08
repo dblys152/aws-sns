@@ -1,7 +1,6 @@
 package com.ys.order.application.message;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.ys.order.application.message.Serializer;
 import com.ys.order.domain.core.Order;
 import com.ys.order.domain.core.OrderId;
 import com.ys.order.domain.event.DomainEvent;
@@ -13,15 +12,16 @@ import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
-class SerializerTest {
+class MessageSerializerTest {
 
     private Serializer<DomainEvent> serializer;
     private DomainEvent domainEvent;
 
     @BeforeEach
     void setUp() {
-        serializer = new Serializer<>();
+        serializer = new MessageSerializer<>();
         Order order = Order.of(OrderId.of("test"), "testUserId", LocalDateTime.now());
         OrderCompletedEvent event = OrderCompletedEvent.fromDomain(order);
         domainEvent = new DomainEvent<OrderCompletedEvent>(
