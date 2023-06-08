@@ -19,7 +19,24 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: none
+  sql:
+    init:
+      schema-locations: classpath*:schema/create.sql
+      encoding: UTF-8
+      mode: always
   h2:
     console:
       enabled: true
       path: /h2-console
+
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+    credentials:
+      access-key: ${AWS_ACCESS_KEY_ID}
+      secret-key: ${AWS_SECRET_ACCESS_KEY}
+
+aws:
+  sqs:
+    FIRST_BENEFIT_GENERATION_QUEUE: FIRST_BENEFIT_GENERATION_QUEUE
