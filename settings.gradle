@@ -1,11 +1,15 @@
 rootProject.name = 'sns'
 
-include 'order:order-adapter'
-include 'order:order-application'
+include 'refs:user'
+
 include 'order:order-domain'
+include 'order:order-application'
+include 'order:order-adapter'
 
-include 'first-benefit:first-benefit-adapter'
+include 'first-benefit:first-benefit-domain'
 include 'first-benefit:first-benefit-application'
+include 'first-benefit:first-benefit-adapter'
 
-include 'second-benefit:second-benefit-adapter'
+include 'second-benefit:second-benefit-domain'
 include 'second-benefit:second-benefit-application'
+include 'second-benefit:second-benefit-adapter'
