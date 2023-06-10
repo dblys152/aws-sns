@@ -7,11 +7,15 @@ plugins {
 
 def javaProjects = [
         project(":first-benefit:first-benefit-adapter"),
-        project(":first-benefit:first-benefit-application")
+        project(":first-benefit:first-benefit-application"),
+        project(":first-benefit:first-benefit-domain")
 ]
 def springBootProjects = [
         project(":first-benefit:first-benefit-adapter"),
         project(":first-benefit:first-benefit-application")
+]
+def queryDslProjects = [
+        project(":first-benefit:first-benefit-adapter")
 ]
 
 configure(javaProjects) {
@@ -47,10 +51,41 @@ configure(springBootProjects) {
         implementation 'org.springframework.boot:spring-boot-starter-validation'
         implementation 'org.springframework.boot:spring-boot-starter-web'
 
-        implementation 'io.awspring.cloud:spring-cloud-starter-aws-messaging:2.4.3'
+        implementation platform("io.awspring.cloud:spring-cloud-aws-dependencies:3.0.1")
+        implementation 'io.awspring.cloud:spring-cloud-aws-starter-sqs'
         implementation 'software.amazon.awssdk:sqs:2.20.78'
 
         testImplementation "org.springframework.boot:spring-boot-starter-test"
+    }
+}
+
+configure(queryDslProjects) {
+    dependencies {
+        implementation 'com.querydsl:querydsl-core:5.0.0'
+        implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+        annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jakarta'
+        annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
+        annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
+    }
+
+    def querydslDir = "$buildDir/generated/querydsl"
+    sourceSets {
+        main.java.srcDirs += [ querydslDir ]
+    }
+
+    tasks.withType(JavaCompile) {
+        options.annotationProcessorGeneratedSourcesDirectory = file(querydslDir)
+    }
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+        querydsl.extendsFrom compileClasspath
+    }
+
+    clean {
+        delete file(querydslDir)
     }
 }
 

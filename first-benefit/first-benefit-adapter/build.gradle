@@ -1,4 +1,6 @@
 dependencies {
+    implementation project(':refs:user')
+    implementation project(':first-benefit:first-benefit-domain')
     implementation project(':first-benefit:first-benefit-application')
 
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
