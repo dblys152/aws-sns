@@ -12,7 +12,7 @@ class FirstBenefitTest {
     private static final String ANY_TARGET_ID = "ANY_TARGET_ID";
 
     @Test
-    void FIRST_BENEFIT_생성() {
+    void FIRST_BENEFIT을_생성한다() {
         FirstBenefit actual = FirstBenefit.create(ANY_USER_ID);
         actual.createTargetMapping(ANY_TARGET_ID, TargetType.ORDER);
 
