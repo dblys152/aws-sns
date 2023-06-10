@@ -15,6 +15,6 @@ public class OrderModel {
     LocalDateTime completedAt;
 
     public static OrderModel fromDomain(Order order) {
-        return new OrderModel(order.getId().getId(), order.getUserId(), order.getCompletedAt());
+        return new OrderModel(order.getId().getId(), order.getOrdererUserId().getId(), order.getCompletedAt());
     }
 }

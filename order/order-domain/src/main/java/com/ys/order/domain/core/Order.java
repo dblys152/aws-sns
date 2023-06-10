@@ -1,9 +1,8 @@
 package com.ys.order.domain.core;
 
-import com.ys.order.domain.event.OrderCompletedEvent;
+import com.ys.refs.user.domain.UserId;
 import jakarta.validation.constraints.NotNull;
 import lombok.Value;
-import org.springframework.data.domain.AbstractAggregateRoot;
 
 import java.time.LocalDateTime;
 
@@ -13,7 +12,7 @@ public class Order {
     @NotNull
     OrderId id;
     @NotNull
-    String userId;
+    UserId ordererUserId;
     @NotNull
     LocalDateTime completedAt;
 }
