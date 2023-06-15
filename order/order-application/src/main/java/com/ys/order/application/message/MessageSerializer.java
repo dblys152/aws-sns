@@ -3,7 +3,6 @@ package com.ys.order.application.message;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ys.order.domain.event.DomainEvent;
 import org.springframework.stereotype.Component;
 
 @Component
