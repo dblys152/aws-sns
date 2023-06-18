@@ -7,6 +7,7 @@ import org.springframework.messaging.MessageHeaders;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Data
 public class GeneralMessage<T> implements Message<T> {
@@ -15,10 +16,14 @@ public class GeneralMessage<T> implements Message<T> {
     private MessageHeaders headers;
 
     public GeneralMessage(T payload) {
-        Map<String, Object> headerMap = new HashMap<>();
-        headerMap.put("contentType", "application/json");
         this.payload = payload;
-        this.headers = new MessageHeaders(headerMap);
+        this.headers = createHeaders();
+    }
+
+    private MessageHeaders createHeaders() {
+        Map<String, Object> headersMap = new HashMap<>();
+        headersMap.put(MessageHeaders.CONTENT_TYPE, "application/json");
+        return new MessageHeaders(headersMap);
     }
 
     @Override
