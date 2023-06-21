@@ -1,6 +1,6 @@
 package com.ys.order.application.service;
 
-import com.ys.order.application.message.DomainEvent;
+import com.ys.infra.message.DomainEvent;
 import com.ys.order.application.port.in.CompleteOrderCommand;
 import com.ys.order.domain.core.Order;
 import com.ys.order.domain.core.OrderId;
