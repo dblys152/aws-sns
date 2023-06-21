@@ -1,4 +1,5 @@
 dependencies {
+    implementation project(':infra:message')
     implementation project(':refs:user')
     implementation project(':first-benefit:first-benefit-domain')
     implementation project(':first-benefit:first-benefit-application')
