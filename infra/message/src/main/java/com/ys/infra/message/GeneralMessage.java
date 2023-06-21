@@ -1,19 +1,22 @@
-package com.ys.order.application.message;
+package com.ys.infra.message;
 
-import com.fasterxml.uuid.Generators;
 import lombok.Data;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @Data
 public class GeneralMessage<T> implements Message<T> {
 
     private T payload;
     private MessageHeaders headers;
+
+    public GeneralMessage(T payload, MessageHeaders headers) {
+        this.payload = payload;
+        this.headers = headers;
+    }
 
     public GeneralMessage(T payload) {
         this.payload = payload;
