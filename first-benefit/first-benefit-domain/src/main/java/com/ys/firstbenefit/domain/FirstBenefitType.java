@@ -1,6 +1,6 @@
 package com.ys.firstbenefit.domain;
 
-public enum TargetType {
+public enum FirstBenefitType {
 
     ORDER;
 }

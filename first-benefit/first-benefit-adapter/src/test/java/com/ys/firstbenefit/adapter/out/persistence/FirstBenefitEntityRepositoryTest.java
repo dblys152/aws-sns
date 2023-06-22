@@ -2,7 +2,7 @@ package com.ys.firstbenefit.adapter.out.persistence;
 
 import com.ys.firstbenefit.adapter.config.DataJpaConfig;
 import com.ys.firstbenefit.domain.FirstBenefitStatus;
-import com.ys.firstbenefit.domain.TargetType;
+import com.ys.firstbenefit.domain.FirstBenefitType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class FirstBenefitEntityRepositoryTest {
 
     private static final String ANY_USER_ID = "ANY_USER_ID";
+    private static final LocalDateTime ANY_EXPIRED_AT = LocalDateTime.now().plusDays(30);
     private static final String ANY_ORDER_ID = "ANY_ORDER_ID";
 
     @Autowired
@@ -34,8 +37,10 @@ class FirstBenefitEntityRepositoryTest {
         entity = new FirstBenefitEntity(
                 FIRST_BENEFIT_ID,
                 ANY_USER_ID,
+                FirstBenefitType.ORDER,
                 FirstBenefitStatus.AVAILABLE,
-                new FirstBenefitTargetMappingEntity(FIRST_BENEFIT_ID, ANY_ORDER_ID, TargetType.ORDER, null),
+                ANY_EXPIRED_AT,
+                new FirstBenefitTargetMappingEntity(FIRST_BENEFIT_ID, ANY_ORDER_ID, null),
                 null, null, null);
     }
 

@@ -10,12 +10,10 @@ public class FirstBenefitTargetMapping {
     FirstBenefitId firstBenefitId;
     @NotNull
     String targetId;
-    @NotNull
-    TargetType type;
 
     Long version;
 
-    public static FirstBenefitTargetMapping create(FirstBenefitId firstBenefitId, String targetId, TargetType type) {
-        return new FirstBenefitTargetMapping(firstBenefitId, targetId, type, null);
+    public static FirstBenefitTargetMapping create(FirstBenefitId firstBenefitId, String targetId) {
+        return new FirstBenefitTargetMapping(firstBenefitId, targetId, null);
     }
 }

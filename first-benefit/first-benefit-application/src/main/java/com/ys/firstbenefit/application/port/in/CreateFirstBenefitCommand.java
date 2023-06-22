@@ -1,7 +1,7 @@
 package com.ys.firstbenefit.application.port.in;
 
 import com.ys.firstbenefit.common.SelfValidating;
-import com.ys.firstbenefit.domain.TargetType;
+import com.ys.firstbenefit.domain.FirstBenefitType;
 import com.ys.refs.user.domain.UserId;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -15,9 +15,9 @@ public class CreateFirstBenefitCommand extends SelfValidating<CreateFirstBenefit
     @NotNull
     private String targetId;
     @NotNull
-    private TargetType type;
+    private FirstBenefitType type;
 
-    public CreateFirstBenefitCommand(UserId userId, String targetId, TargetType type) {
+    public CreateFirstBenefitCommand(UserId userId, String targetId, FirstBenefitType type) {
         this.userId = userId;
         this.targetId = targetId;
         this.type = type;

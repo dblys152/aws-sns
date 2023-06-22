@@ -1,8 +1,6 @@
 package com.ys.firstbenefit.adapter.out.persistence;
 
-import com.ys.firstbenefit.domain.FirstBenefit;
-import com.ys.firstbenefit.domain.FirstBenefitId;
-import com.ys.firstbenefit.domain.FirstBenefitStatus;
+import com.ys.firstbenefit.domain.*;
 import com.ys.refs.user.domain.UserId;
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,15 +23,21 @@ import java.time.LocalDateTime;
 public class FirstBenefitEntity {
 
     @Id
+    @Column(name = "id")
     private String id;
     @Column(name = "user_id", nullable = false)
     private String userId;
+    @Column(name = "type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private FirstBenefitType type;
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private FirstBenefitStatus status;
+    @Column(name = "expired_at", nullable = false)
+    private LocalDateTime expiredAt;
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "first_benefit_id")
+    @JoinColumn(name = "id")
     private FirstBenefitTargetMappingEntity firstBenefitTargetMappingEntity;
 
     @CreatedDate
@@ -49,7 +53,9 @@ public class FirstBenefitEntity {
         return new FirstBenefitEntity(
                 firstBenefit.getId().getId(),
                 firstBenefit.getUserId().getId(),
+                firstBenefit.getType(),
                 firstBenefit.getStatus(),
+                firstBenefit.getExpiredAt().getValue(),
                 FirstBenefitTargetMappingEntity.fromDomain(firstBenefit.getFirstBenefitTargetMapping()),
                 firstBenefit.getCreatedAt(),
                 firstBenefit.getModifiedAt(),
@@ -61,7 +67,9 @@ public class FirstBenefitEntity {
         return FirstBenefit.of(
                 FirstBenefitId.of(this.id),
                 UserId.of(this.userId),
+                this.type,
                 this.status,
+                FirstBenefitExpiredAt.of(this.expiredAt),
                 this.firstBenefitTargetMappingEntity.toDomain(),
                 this.createdAt,
                 this.modifiedAt,

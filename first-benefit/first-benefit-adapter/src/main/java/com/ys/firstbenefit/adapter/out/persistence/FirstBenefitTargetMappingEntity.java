@@ -2,7 +2,7 @@ package com.ys.firstbenefit.adapter.out.persistence;
 
 import com.ys.firstbenefit.domain.FirstBenefitId;
 import com.ys.firstbenefit.domain.FirstBenefitTargetMapping;
-import com.ys.firstbenefit.domain.TargetType;
+import com.ys.firstbenefit.domain.FirstBenefitType;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -22,11 +22,8 @@ public class FirstBenefitTargetMappingEntity {
     @Id
     @Column(name = "first_benefit_id")
     private String firstBenefitId;
-    @Column(name = "target_id")
+    @Column(name = "target_id", nullable = false)
     private String targetId;
-    @Column(name = "status", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private TargetType type;
 
     @Version
     private Long version;
@@ -35,7 +32,6 @@ public class FirstBenefitTargetMappingEntity {
         return new FirstBenefitTargetMappingEntity(
                 firstBenefitTargetMapping.getFirstBenefitId().getId(),
                 firstBenefitTargetMapping.getTargetId(),
-                firstBenefitTargetMapping.getType(),
                 firstBenefitTargetMapping.getVersion()
         );
     }
@@ -44,7 +40,6 @@ public class FirstBenefitTargetMappingEntity {
         return FirstBenefitTargetMapping.of(
                 FirstBenefitId.of(this.firstBenefitId),
                 this.targetId,
-                this.type,
                 this.version
         );
     }

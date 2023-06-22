@@ -22,7 +22,11 @@ public class FirstBenefit {
     @NotNull
     private UserId userId;
     @NotNull
+    private FirstBenefitType type;
+    @NotNull
     private FirstBenefitStatus status;
+    @NotNull
+    private FirstBenefitExpiredAt expiredAt;
 
     private FirstBenefitTargetMapping firstBenefitTargetMapping;
 
@@ -30,30 +34,40 @@ public class FirstBenefit {
     private LocalDateTime modifiedAt;
     private Long version;
 
-    private FirstBenefit(FirstBenefitId id, UserId userId, FirstBenefitStatus status) {
+    private FirstBenefit(
+            FirstBenefitId id,
+            UserId userId,
+            FirstBenefitType type,
+            FirstBenefitStatus status,
+            FirstBenefitExpiredAt expiredAt
+    ) {
         this.id = id;
         this.userId = userId;
+        this.type = type;
         this.status = status;
+        this.expiredAt = expiredAt;
     }
 
-    public static FirstBenefit create(UserId userId) {
+    public static FirstBenefit create(UserId userId, FirstBenefitType type) {
         FirstBenefitId id = FirstBenefitId.of(Generators.timeBasedEpochGenerator().generate().toString());
-        return new FirstBenefit(id, userId, AVAILABLE);
+        return new FirstBenefit(id, userId, type, AVAILABLE, FirstBenefitExpiredAt.create(type));
     }
 
-    public void createTargetMapping(String targetId, TargetType type) {
-        this.firstBenefitTargetMapping = FirstBenefitTargetMapping.create(this.id, targetId, type);
+    public void createTargetMapping(String targetId) {
+        this.firstBenefitTargetMapping = FirstBenefitTargetMapping.create(this.id, targetId);
     }
 
     public static FirstBenefit of(
             FirstBenefitId id,
             UserId userId,
+            FirstBenefitType type,
             FirstBenefitStatus status,
+            FirstBenefitExpiredAt expiredAt,
             FirstBenefitTargetMapping firstBenefitTargetMapping,
             LocalDateTime createdAt,
             LocalDateTime modifiedAt,
             Long version
     ) {
-        return new FirstBenefit(id, userId, status, firstBenefitTargetMapping, createdAt, modifiedAt, version);
+        return new FirstBenefit(id, userId, type, status, expiredAt, firstBenefitTargetMapping, createdAt, modifiedAt, version);
     }
 }
