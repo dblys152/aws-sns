@@ -3,23 +3,16 @@ package com.ys.infra.message;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
 public class DomainEvent<T> {
 
-    @JsonProperty("type")
     private final String type;
-    @JsonProperty("occurredAt")
     private final String occurredAt;
-    @JsonProperty("payload")
     private final T payload;
 
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
