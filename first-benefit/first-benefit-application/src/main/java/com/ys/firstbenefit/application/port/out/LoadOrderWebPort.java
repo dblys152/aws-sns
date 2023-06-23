@@ -2,5 +2,5 @@ package com.ys.firstbenefit.application.port.out;
 
 public interface LoadOrderWebPort {
 
-    OrderModel get(String orderId);
+    ResponseModel.OrderModel get(String orderId);
 }
