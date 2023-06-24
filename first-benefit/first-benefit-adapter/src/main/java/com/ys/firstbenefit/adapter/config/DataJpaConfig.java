@@ -12,9 +12,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
+import java.util.HashMap;
 
 @Configuration
 @EnableJpaAuditing
@@ -49,9 +51,16 @@ public class DataJpaConfig {
     }
 
     @Bean
+    public EntityManagerFactoryBuilder entityManagerFactoryBuilder() {
+        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        vendorAdapter.setGenerateDdl(true);
+
+        return new EntityManagerFactoryBuilder(vendorAdapter, new HashMap<>(), null);
+    }
+
+    @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
-            EntityManagerFactoryBuilder builder
-    ) {
+            EntityManagerFactoryBuilder builder) {
         return builder
                 .dataSource(dataSource())
                 .packages("com.ys.firstbenefit.adapter")

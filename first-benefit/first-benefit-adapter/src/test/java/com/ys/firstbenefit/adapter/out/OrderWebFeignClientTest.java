@@ -8,6 +8,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,9 @@ class OrderWebFeignClientTest {
     @LocalServerPort
     private int port;
 
+    @Value("${endpoint.order-v1}")
+    private String ORDER_ENDPOINT;
+
     @Autowired
     private OrderWebFeignClient orderWebFeignClient;
 
@@ -44,7 +48,7 @@ class OrderWebFeignClientTest {
 
     @Test
     void 주문_정보를_조회한다() {
-        wireMockServer.stubFor(get(urlPathEqualTo("/order-service/" + ANY_ORDER_ID))
+        wireMockServer.stubFor(get(urlPathEqualTo(ORDER_ENDPOINT + "/" + ANY_ORDER_ID))
                 .willReturn(aResponse()
                         .withStatus(HttpStatus.OK.value())
                         .withHeader("Content-Type", "application/json")
