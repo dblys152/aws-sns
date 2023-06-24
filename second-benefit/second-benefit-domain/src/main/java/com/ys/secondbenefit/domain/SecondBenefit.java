@@ -28,7 +28,7 @@ public class SecondBenefit {
     @NotNull
     private SecondBenefitExpiredAt expiredAt;
 
-    private SecondBenefitTargetMapping firstBenefitTargetMapping;
+    private SecondBenefitTargetMapping secondBenefitTargetMapping;
 
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
@@ -54,7 +54,7 @@ public class SecondBenefit {
     }
 
     public void createTargetMapping(String targetId) {
-        this.firstBenefitTargetMapping = SecondBenefitTargetMapping.create(this.id, targetId);
+        this.secondBenefitTargetMapping = SecondBenefitTargetMapping.create(this.id, targetId);
     }
 
     public static SecondBenefit of(
@@ -63,11 +63,11 @@ public class SecondBenefit {
             SecondBenefitType type,
             SecondBenefitStatus status,
             SecondBenefitExpiredAt expiredAt,
-            SecondBenefitTargetMapping firstBenefitTargetMapping,
+            SecondBenefitTargetMapping secondBenefitTargetMapping,
             LocalDateTime createdAt,
             LocalDateTime modifiedAt,
             Long version
     ) {
-        return new SecondBenefit(id, userId, type, status, expiredAt, firstBenefitTargetMapping, createdAt, modifiedAt, version);
+        return new SecondBenefit(id, userId, type, status, expiredAt, secondBenefitTargetMapping, createdAt, modifiedAt, version);
     }
 }

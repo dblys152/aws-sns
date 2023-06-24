@@ -19,7 +19,7 @@ class SecondBenefitTest {
         assertAll(
                 () -> assertThat(actual).isNotNull(),
                 () -> assertThat(actual.getId()).isNotNull(),
-                () -> assertThat(actual.getFirstBenefitTargetMapping()).isNotNull()
+                () -> assertThat(actual.getSecondBenefitTargetMapping()).isNotNull()
         );
     }
 }

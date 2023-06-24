@@ -7,7 +7,7 @@ import lombok.Value;
 public class SecondBenefitTargetMapping {
 
     @NotNull
-    SecondBenefitId firstBenefitId;
+    SecondBenefitId secondBenefitId;
     @NotNull
     String targetId;
 
