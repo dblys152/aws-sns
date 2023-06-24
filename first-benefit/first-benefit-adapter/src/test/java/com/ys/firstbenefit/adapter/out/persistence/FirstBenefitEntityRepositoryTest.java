@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ContextConfiguration(classes = DataJpaConfig.class)
 class FirstBenefitEntityRepositoryTest {
 
+    private static final String ANY_FIRST_BENEFIT_ID = "ANY_FIRST_BENEFIT_ID";
     private static final String ANY_USER_ID = "ANY_USER_ID";
     private static final LocalDateTime ANY_EXPIRED_AT = LocalDateTime.now().plusDays(30);
     private static final String ANY_ORDER_ID = "ANY_ORDER_ID";
@@ -34,14 +35,13 @@ class FirstBenefitEntityRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        String FIRST_BENEFIT_ID = "FIRST_BENEFIT_ID";
         entity = new FirstBenefitEntity(
-                FIRST_BENEFIT_ID,
+                ANY_FIRST_BENEFIT_ID,
                 ANY_USER_ID,
                 FirstBenefitType.ORDER,
                 FirstBenefitStatus.AVAILABLE,
                 ANY_EXPIRED_AT,
-                new FirstBenefitTargetMappingEntity(FIRST_BENEFIT_ID, ANY_ORDER_ID, null),
+                new FirstBenefitTargetMappingEntity(ANY_FIRST_BENEFIT_ID, ANY_ORDER_ID, null),
                 null, null, null);
     }
 
