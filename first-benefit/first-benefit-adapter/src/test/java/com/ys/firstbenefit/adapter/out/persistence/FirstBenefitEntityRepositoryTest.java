@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,6 +53,18 @@ class FirstBenefitEntityRepositoryTest {
                 () -> assertThat(actual).isNotNull(),
                 () -> assertThat(actual.getId()).isEqualTo(entity.getId()),
                 () -> assertThat(actual.getFirstBenefitTargetMappingEntity()).isNotNull()
+        );
+    }
+
+    @Test
+    void findAllByUserId() {
+        FirstBenefitEntity saved = repository.save(entity);
+
+        List<FirstBenefitEntity> actual = repository.findAllByUserId(ANY_USER_ID);
+
+        assertAll(
+                () -> assertThat(actual).isNotEmpty(),
+                () -> assertThat(actual.get(0).getUserId()).isEqualTo(saved.getUserId())
         );
     }
 }
