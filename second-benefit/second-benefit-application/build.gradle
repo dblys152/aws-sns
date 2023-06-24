@@ -1,0 +1,8 @@
+dependencies {
+    implementation project(':refs:user')
+    implementation project(':second-benefit:second-benefit-domain')
+}
+
+bootJar {
+    enabled(false)
+}
