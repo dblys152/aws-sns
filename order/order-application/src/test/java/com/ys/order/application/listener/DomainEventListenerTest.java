@@ -1,7 +1,8 @@
 package com.ys.order.application.listener;
 
 import com.ys.infra.message.DomainEvent;
-import com.ys.order.application.message.MessageSender;
+import com.ys.order.application.message.SnsSender;
+import com.ys.order.application.message.SqsSender;
 import com.ys.order.domain.event.OrderCompletedEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.messaging.Message;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -25,12 +27,16 @@ class DomainEventListenerTest {
     private DomainEventListener sut;
 
     @Mock
-    private MessageSender<String> sender;
+    private SnsSender snsSender;
+    @Mock
+    private SqsSender sqsSender;
 
     @Captor
-    private ArgumentCaptor<Message<String>> captor;
+    private ArgumentCaptor<Message<String>> snsCaptor;
+    @Captor
+    private ArgumentCaptor<Message<DomainEvent>> sqsCaptor;
 
-    private DomainEvent<OrderCompletedEvent> domainEvent;
+    private DomainEvent domainEvent;
 
     @BeforeEach
     void setUp() {
@@ -44,9 +50,15 @@ class DomainEventListenerTest {
     void 수신된_도메인_이벤트_메시지_전송() {
         sut.on(domainEvent);
 
-        verify(sender).send(captor.capture());
-        Message<String> message = captor.getValue();
-        assertThat(message.getHeaders()).isNotEmpty();
-        assertThat(message.getPayload()).isNotEmpty();
+        verify(snsSender).send(snsCaptor.capture());
+        Message<String> snsMessage = snsCaptor.getValue();
+        verify(sqsSender).send(sqsCaptor.capture());
+        Message<DomainEvent> sqsMessage = sqsCaptor.getValue();
+        assertAll(
+                () -> assertThat(snsMessage.getHeaders()).isNotEmpty(),
+                () -> assertThat(snsMessage.getPayload()).isNotEmpty(),
+                () -> assertThat(sqsMessage.getHeaders()).isNotEmpty(),
+                () -> assertThat(sqsMessage.getPayload()).isNotNull()
+        );
     }
 }

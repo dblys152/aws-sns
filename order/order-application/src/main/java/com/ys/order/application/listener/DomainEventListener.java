@@ -14,12 +14,15 @@ import org.springframework.transaction.event.TransactionalEventListener;
 @Slf4j
 public class DomainEventListener {
 
-    private final MessageSender<DomainEvent> sender;
+    private final SnsSender snsSender;
+    private final SqsSender sqsSender;
 
     @TransactionalEventListener
     public void on(DomainEvent event) {
-        Message<DomainEvent> message = new GeneralMessage<>(event.serializePayload());
-        sender.send(message);
-        log.info("DomainEvent Receive name: {} OccurredAt: {}", event.getClass().getName(), event.getOccurredAt());
+        Message<String> snsMessage = new GeneralMessage<>(event.serialize());
+        snsSender.send(snsMessage);
+        Message<DomainEvent> sqsMessage = new GeneralMessage<>(event.serializePayload());
+        sqsSender.send(sqsMessage);
+        log.info("Receive DomainEvent name: {} OccurredAt: {}", event.getType(), event.getOccurredAt());
     }
 }
