@@ -6,13 +6,13 @@ plugins {
 }
 
 def javaProjects = [
-        project(":first-benefit:first-benefit-adapter"),
+        project(":first-benefit:first-benefit-domain"),
         project(":first-benefit:first-benefit-application"),
-        project(":first-benefit:first-benefit-domain")
+        project(":first-benefit:first-benefit-adapter")
 ]
 def springBootProjects = [
-        project(":first-benefit:first-benefit-adapter"),
-        project(":first-benefit:first-benefit-application")
+        project(":first-benefit:first-benefit-application"),
+        project(":first-benefit:first-benefit-adapter")
 ]
 def queryDslProjects = [
         project(":first-benefit:first-benefit-adapter")

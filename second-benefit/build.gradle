@@ -6,13 +6,13 @@ plugins {
 }
 
 def javaProjects = [
-        project(":second-benefit:second-benefit-adapter"),
+        project(":second-benefit:second-benefit-domain"),
         project(":second-benefit:second-benefit-application"),
-        project(":second-benefit:second-benefit-domain")
+        project(":second-benefit:second-benefit-adapter")
 ]
 def springBootProjects = [
-        project(":second-benefit:second-benefit-adapter"),
-        project(":second-benefit:second-benefit-application")
+        project(":second-benefit:second-benefit-application"),
+        project(":second-benefit:second-benefit-adapter")
 ]
 def queryDslProjects = [
         project(":second-benefit:second-benefit-adapter")

@@ -6,13 +6,14 @@ plugins {
 }
 
 def javaProjects = [
-        project(":order:order-adapter"),
+        project(":order:order-domain"),
         project(":order:order-application"),
-        project(":order:order-domain")
+        project(":order:order-adapter")
+
 ]
 def springBootProjects = [
-        project(":order:order-adapter"),
-        project(":order:order-application")
+        project(":order:order-application"),
+        project(":order:order-adapter")
 ]
 
 configure(javaProjects) {
