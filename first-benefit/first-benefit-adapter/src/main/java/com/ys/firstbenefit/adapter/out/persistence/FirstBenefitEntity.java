@@ -36,7 +36,7 @@ public class FirstBenefitEntity {
     @Column(name = "expired_at", nullable = false)
     private LocalDateTime expiredAt;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
     private FirstBenefitTargetMappingEntity firstBenefitTargetMappingEntity;
 

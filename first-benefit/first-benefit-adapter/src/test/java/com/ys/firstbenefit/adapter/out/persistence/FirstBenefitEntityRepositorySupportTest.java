@@ -4,6 +4,7 @@ import com.ys.firstbenefit.adapter.config.DataJpaConfig;
 import com.ys.firstbenefit.adapter.out.persistence.fixture.SupportFirstBenefitEntityFixture;
 import com.ys.firstbenefit.domain.FirstBenefitStatus;
 import com.ys.firstbenefit.domain.FirstBenefitType;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -19,15 +22,21 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ContextConfiguration(classes = DataJpaConfig.class)
-class FirstBenefitEntityRepositoryTest extends SupportFirstBenefitEntityFixture {
+class FirstBenefitEntityRepositorySupportTest extends SupportFirstBenefitEntityFixture {
+
+    @Autowired
+    EntityManager entityManager;
 
     @Autowired
     private FirstBenefitEntityRepository repository;
+
+    private FirstBenefitEntityRepositorySupport repositorySupport;
 
     private FirstBenefitEntity entity;
 
     @BeforeEach
     void setUp() {
+        this.repositorySupport = new FirstBenefitEntityRepositorySupport(entityManager);
         entity = new FirstBenefitEntity(
                 ANY_FIRST_BENEFIT_ID,
                 ANY_USER_ID,
@@ -39,13 +48,14 @@ class FirstBenefitEntityRepositoryTest extends SupportFirstBenefitEntityFixture 
     }
 
     @Test
-    void save() {
-        FirstBenefitEntity actual = repository.save(entity);
+    void findAllByUserId() {
+        FirstBenefitEntity saved = repository.save(entity);
+
+        List<FirstBenefitEntity> actual = repositorySupport.findAllByUserId(ANY_USER_ID);
 
         assertAll(
-                () -> assertThat(actual).isNotNull(),
-                () -> assertThat(actual.getId()).isEqualTo(entity.getId()),
-                () -> assertThat(actual.getFirstBenefitTargetMappingEntity()).isNotNull()
+                () -> assertThat(actual).isNotEmpty(),
+                () -> assertThat(actual.get(0).getUserId()).isEqualTo(saved.getUserId())
         );
     }
 }

@@ -3,6 +3,7 @@ package com.ys.secondbenefit.adapter.out;
 import com.ys.refs.user.domain.UserId;
 import com.ys.secondbenefit.adapter.out.persistence.SecondBenefitEntity;
 import com.ys.secondbenefit.adapter.out.persistence.SecondBenefitEntityRepository;
+import com.ys.secondbenefit.adapter.out.persistence.SecondBenefitEntityRepositorySupport;
 import com.ys.secondbenefit.application.port.out.LoadSecondBenefitPort;
 import com.ys.secondbenefit.application.port.out.RecordSecondBenefitPort;
 import com.ys.secondbenefit.domain.SecondBenefit;
@@ -17,6 +18,7 @@ import java.util.List;
 public class SecondBenefitPersistenceAdapter implements RecordSecondBenefitPort, LoadSecondBenefitPort {
 
     private final SecondBenefitEntityRepository repository;
+    private final SecondBenefitEntityRepositorySupport repositorySupport;
 
     @Override
     public SecondBenefit save(SecondBenefit secondBenefit) {
@@ -26,7 +28,7 @@ public class SecondBenefitPersistenceAdapter implements RecordSecondBenefitPort,
 
     @Override
     public SecondBenefits findAllByUserId(UserId userId) {
-        List<SecondBenefitEntity> secondBenefitEntityList = repository.findAllByUserId(userId.getId());
+        List<SecondBenefitEntity> secondBenefitEntityList = repositorySupport.findAllByUserId(userId.getId());
         return SecondBenefits.of(secondBenefitEntityList.stream()
                 .map(f -> f.toDomain())
                 .toList());
