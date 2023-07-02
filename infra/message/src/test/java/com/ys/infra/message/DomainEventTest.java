@@ -22,11 +22,12 @@ class DomainEventTest {
     }
 
     @Test
-    public void 도메인_이벤트_직렬화() {
+    void 도메인_이벤트_직렬화() {
         String actual = sut.serialize();
 
-        assertThat(actual).isNotNull();
-        System.out.println(actual);
+        assertThat(actual).isEqualTo("{\"type\":\"" + ANY_EVENT_TYPE
+                + "\",\"occurredAt\":\"" + ANY_OCCURRED_AT_STRING
+                + "\",\"payload\":\"{\\\"value\\\":\\\"ANY_VALUE\\\"}\"}");
     }
 
     @Test
@@ -38,11 +39,10 @@ class DomainEventTest {
     }
 
     @Test
-    public void 도메인_이벤트_역직렬화() {
-        String serializedEventPayload = "{\\\"value\\\":\\\"ANY_VALUE\\\"}";
+    void 도메인_이벤트_역직렬화() {
         String serializedEvent = "{\"type\":\"" + ANY_EVENT_TYPE
                 + "\",\"occurredAt\":\"" + ANY_OCCURRED_AT_STRING
-                + "\",\"payload\":\""+ serializedEventPayload +"\"}";
+                + "\",\"payload\":\"{\\\"value\\\":\\\"ANY_VALUE\\\"}\"}";
 
         DomainEvent<AnyEvent> actual = DomainEvent.deserialize(serializedEvent, AnyEvent.class);
         assertAll(
@@ -54,7 +54,22 @@ class DomainEventTest {
     }
 
     @Test
-    public void 도메인_이벤트_페이로드_역직렬화() {
+    void 도메인_이벤트_역직렬화_payload_string() {
+        String serializedEvent = "{\"type\":\"" + ANY_EVENT_TYPE
+                + "\",\"occurredAt\":\"" + ANY_OCCURRED_AT_STRING
+                + "\",\"payload\":\"{\\\"value\\\":\\\"ANY_VALUE\\\"}\"}";
+
+        DomainEvent<String> actual = DomainEvent.deserialize(serializedEvent, String.class);
+        assertAll(
+                () -> assertThat(actual).isNotNull(),
+                () -> assertThat(actual.getType()).isEqualTo(ANY_EVENT_TYPE),
+                () -> assertThat(actual.getOccurredAt()).isEqualTo(ANY_OCCURRED_AT_STRING),
+                () -> assertThat(actual.getPayload()).isInstanceOf(String.class)
+        );
+    }
+
+    @Test
+    void 도메인_이벤트_페이로드_역직렬화() {
         DomainEvent eventOfSerializedPayload = sut.serializePayload();
 
         DomainEvent<AnyEvent> actual = DomainEvent.deserializePayload(eventOfSerializedPayload, AnyEvent.class);
@@ -63,7 +78,7 @@ class DomainEventTest {
                 () -> assertThat(actual).isNotNull(),
                 () -> assertThat(actual.getType()).isEqualTo(ANY_EVENT_TYPE),
                 () -> assertThat(actual.getOccurredAt()).isEqualTo(ANY_OCCURRED_AT_STRING),
-                () -> assertThat(actual.getPayload()).isNotNull()
+                () -> assertThat(actual.getPayload()).isInstanceOf(AnyEvent.class)
         );
     }
 

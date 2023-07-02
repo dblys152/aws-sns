@@ -3,7 +3,6 @@ package com.ys.infra.message;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 
@@ -55,10 +54,10 @@ public class DomainEvent<T> {
         }
     }
 
-    public static <T> DomainEvent<T> deserialize(String serializedDomainEvent, Class<T> payloadType) {
+    public static DomainEvent deserialize(String serializedDomainEvent, Class<?> payloadType) {
         try {
-            JavaType valueType = objectMapper.getTypeFactory().constructParametricType(DomainEvent.class, payloadType);
-            return objectMapper.readValue(serializedDomainEvent, valueType);
+            DomainEvent<String> domainEvent = objectMapper.readValue(serializedDomainEvent, DomainEvent.class);
+            return payloadType == String.class ? domainEvent : deserializePayload(domainEvent, payloadType);
         } catch (JsonProcessingException e) {
             throw new DomainEventException(serializedDomainEvent, e);
         }
