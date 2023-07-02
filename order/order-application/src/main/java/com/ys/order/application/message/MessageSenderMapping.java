@@ -1,6 +1,6 @@
 package com.ys.order.application.message;
 
-public interface Mapping {
+public interface MessageSenderMapping {
 
     String get(String type);
 }

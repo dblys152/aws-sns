@@ -1,7 +1,7 @@
 package com.ys.order.adapter.config;
 
-import com.ys.order.application.message.Mapping;
-import com.ys.order.application.message.MessageSenderNameMapping;
+import com.ys.order.application.message.SnsSenderMapping;
+import com.ys.order.application.message.SqsSenderMapping;
 import com.ys.order.domain.event.OrderCompletedEvent;
 import io.awspring.cloud.sqs.operations.SqsTemplate;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,18 +14,30 @@ public class AwsConfig {
 
     @Value("${aws.sns.ORDER_COMPLETED_TOPIC}")
     String ORDER_COMPLETED_TOPIC;
+
     @Value("${aws.sqs.FIRST_BENEFIT_CREATION_QUEUE}")
     String FIRST_BENEFIT_CREATION_QUEUE;
 
     @Bean
-    public SqsTemplate sqsTemplate(SqsAsyncClient sqsAsyncClient) {
-        return SqsTemplate.newTemplate(sqsAsyncClient);
+    public SqsAsyncClient sqsAsyncClient() {
+        return SqsAsyncClient.builder().build();
     }
 
     @Bean
-    public Mapping sqsSenderNameMapping(){
-        MessageSenderNameMapping mapping = new MessageSenderNameMapping();
+    public SqsTemplate sqsTemplate() {
+        return SqsTemplate.newTemplate(sqsAsyncClient());
+    }
+
+    @Bean
+    public SnsSenderMapping snsSenderMapping(){
+        SnsSenderMapping mapping = new SnsSenderMapping();
         mapping.add(OrderCompletedEvent.class.getName(), ORDER_COMPLETED_TOPIC);
+        return mapping;
+    }
+
+    @Bean
+    public SqsSenderMapping sqsSenderMapping(){
+        SqsSenderMapping mapping = new SqsSenderMapping();
         mapping.add(OrderCompletedEvent.class.getName(), FIRST_BENEFIT_CREATION_QUEUE);
         return mapping;
     }

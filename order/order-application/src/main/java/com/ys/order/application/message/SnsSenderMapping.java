@@ -3,7 +3,7 @@ package com.ys.order.application.message;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MessageSenderNameMapping implements Mapping {
+public class SnsSenderMapping implements MessageSenderMapping {
 
     private final Map<String, String> queue = new HashMap<>();
 

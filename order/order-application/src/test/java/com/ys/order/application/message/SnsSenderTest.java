@@ -3,7 +3,7 @@ package com.ys.order.application.message;
 import com.ys.infra.message.DomainEvent;
 import com.ys.infra.message.GeneralMessage;
 import com.ys.order.domain.event.OrderCompletedEvent;
-import io.awspring.cloud.sqs.operations.SqsTemplate;
+import io.awspring.cloud.sns.core.SnsTemplate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,37 +17,37 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class SqsSenderTest {
+class SnsSenderTest {
 
     private static final String ANY_ORDER_ID = "ANY_ORDER_ID";
 
-    private static final String ANY_SQS_NAME = "ANY_SQS_NAME";
+    private static final String ANY_SNS_NAME = "ANY_SNS_NAME";
 
     @InjectMocks
-    private SqsSender sut;
+    private SnsSender sut;
 
     @Mock
-    private SqsSenderMapping mapping;
+    private SnsSenderMapping mapping;
     @Mock
-    private SqsTemplate sqsTemplate;
+    private SnsTemplate snsTemplate;
 
-    private DomainEvent domainEvent;
+    private String serializedDomainEvent;
 
     @BeforeEach
     void setUp()  {
-        domainEvent = new DomainEvent<>(
+        serializedDomainEvent = new DomainEvent<>(
                 OrderCompletedEvent.class.getName(),
                 new OrderCompletedEvent(ANY_ORDER_ID)
-        ).serializePayload();
+        ).serialize();
     }
 
     @Test
-    void SQS_메시지_전송() {
-        Message<DomainEvent> message = new GeneralMessage<>(domainEvent);
-        given(mapping.get(any())).willReturn(ANY_SQS_NAME);
+    void SNS_메지시_전송() {
+        Message<String> message = new GeneralMessage<>(serializedDomainEvent);
+        given(mapping.get(any())).willReturn(ANY_SNS_NAME);
 
         sut.send(message);
 
-        verify(sqsTemplate).send(ANY_SQS_NAME, message);
+        verify(snsTemplate).send(ANY_SNS_NAME, message);
     }
 }
