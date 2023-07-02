@@ -4,9 +4,9 @@
 - Spring Boot 3.1.0
 - Spring Cloud AWS 3.0.1 
 - Spring Cloud OpenFeign 4.0.3
+- Spring Data Jpa & QueryDsl
 - Java 17
 - H2
-- Spring Data Jpa & QueryDsl
 
 
 ### API
