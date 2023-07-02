@@ -3,6 +3,7 @@ package com.ys.infra.message;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 
@@ -10,6 +11,8 @@ import java.time.LocalDateTime;
 
 @Data
 public class DomainEvent<T> {
+
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     private final String type;
     private final String occurredAt;
@@ -31,8 +34,16 @@ public class DomainEvent<T> {
         this.payload = payload;
     }
 
+    public String serialize() {
+        try {
+            DomainEvent<String> domainEvent = this.serializePayload();
+            return objectMapper.writeValueAsString(domainEvent);
+        } catch (JsonProcessingException e) {
+            throw new DomainEventException(this.type, e);
+        }
+    }
+
     public DomainEvent<String> serializePayload() {
-        ObjectMapper objectMapper = new ObjectMapper();
         try {
             return new DomainEvent<>(
                     this.type,
@@ -44,8 +55,16 @@ public class DomainEvent<T> {
         }
     }
 
+    public static <T> DomainEvent<T> deserialize(String serializedDomainEvent, Class<T> payloadType) {
+        try {
+            JavaType valueType = objectMapper.getTypeFactory().constructParametricType(DomainEvent.class, payloadType);
+            return objectMapper.readValue(serializedDomainEvent, valueType);
+        } catch (JsonProcessingException e) {
+            throw new DomainEventException(serializedDomainEvent, e);
+        }
+    }
+
     public static <T> DomainEvent<T> deserializePayload(DomainEvent<String> serializedEvent, Class<T> payloadType) {
-        ObjectMapper objectMapper = new ObjectMapper();
         try {
             T deserializedPayload = objectMapper.readValue(serializedEvent.getPayload(), payloadType);
             return new DomainEvent<>(
