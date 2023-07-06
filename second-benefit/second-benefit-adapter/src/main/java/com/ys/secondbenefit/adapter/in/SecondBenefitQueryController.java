@@ -22,7 +22,7 @@ public class SecondBenefitQueryController {
 
     private final GetSecondBenefitQuery getSecondBenefitQuery;
 
-    @GetMapping("/{userId}")
+    @GetMapping("/users/{userId}")
     public ResponseEntity getFirstBenefits(
             @PathVariable("userId") String userId) {
 

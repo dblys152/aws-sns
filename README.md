@@ -17,9 +17,9 @@
     - orderId : 임의의 값
 
 [First Benefit 조회]
-- GET http://localhost:8060/v1/first-benefits/{userId}
+- GET http://localhost:8060/v1/first-benefits/users/{userId}
   - userId : testUserId
 
 [Second Benefit 조회]
-- GET http://localhost:8070/v1/second-benefits/{userId}
+- GET http://localhost:8070/v1/second-benefits/users/{userId}
   - userId : testUserId
