@@ -3,11 +3,11 @@ package com.ys.firstbenefit.adapter.out;
 import com.ys.firstbenefit.adapter.out.persistence.FirstBenefitEntity;
 import com.ys.firstbenefit.adapter.out.persistence.FirstBenefitEntityRepository;
 import com.ys.firstbenefit.adapter.out.persistence.FirstBenefitEntityRepositorySupport;
+import com.ys.firstbenefit.application.port.in.GetFirstBenefitParams;
 import com.ys.firstbenefit.application.port.out.LoadFirstBenefitPort;
 import com.ys.firstbenefit.application.port.out.RecordFirstBenefitPort;
 import com.ys.firstbenefit.domain.FirstBenefit;
 import com.ys.firstbenefit.domain.FirstBenefits;
-import com.ys.refs.user.domain.UserId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -27,8 +27,8 @@ public class FirstBenefitPersistenceAdapter implements RecordFirstBenefitPort, L
     }
 
     @Override
-    public FirstBenefits findAllByUserId(UserId userId) {
-        List<FirstBenefitEntity> firstBenefitEntityList = repositorySupport.findAllByUserId(userId.getId());
+    public FirstBenefits findAllByParams(GetFirstBenefitParams params) {
+        List<FirstBenefitEntity> firstBenefitEntityList = repositorySupport.findAllByParams(params);
         return FirstBenefits.of(firstBenefitEntityList.stream()
                 .map(f -> f.toDomain())
                 .toList());

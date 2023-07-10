@@ -2,8 +2,10 @@ package com.ys.firstbenefit.adapter.out.persistence;
 
 import com.ys.firstbenefit.adapter.config.DataJpaConfig;
 import com.ys.firstbenefit.adapter.out.persistence.fixture.SupportFirstBenefitEntityFixture;
+import com.ys.firstbenefit.application.port.in.GetFirstBenefitParams;
 import com.ys.firstbenefit.domain.FirstBenefitStatus;
 import com.ys.firstbenefit.domain.FirstBenefitType;
+import com.ys.refs.user.domain.UserId;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,10 +50,24 @@ class FirstBenefitEntityRepositorySupportTest extends SupportFirstBenefitEntityF
     }
 
     @Test
-    void findAllByUserId() {
+    void 전체_목록_조회() {
         FirstBenefitEntity saved = repository.save(entity);
 
-        List<FirstBenefitEntity> actual = repositorySupport.findAllByUserId(ANY_USER_ID);
+        List<FirstBenefitEntity> actual = repositorySupport.findAllByParams(GetFirstBenefitParams.builder().build());
+
+        assertAll(
+                () -> assertThat(actual).isNotEmpty()
+        );
+    }
+
+    @Test
+    void 유저의_전체_목록_조회() {
+        FirstBenefitEntity saved = repository.save(entity);
+        GetFirstBenefitParams params = GetFirstBenefitParams.builder()
+                .userId(UserId.of(ANY_USER_ID))
+                .build();
+
+        List<FirstBenefitEntity> actual = repositorySupport.findAllByParams(params);
 
         assertAll(
                 () -> assertThat(actual).isNotEmpty(),

@@ -2,7 +2,6 @@ package com.ys.firstbenefit.adapter.out.persistence;
 
 import com.ys.firstbenefit.domain.FirstBenefitId;
 import com.ys.firstbenefit.domain.FirstBenefitTargetMapping;
-import com.ys.firstbenefit.domain.FirstBenefitType;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +10,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @Table(name = "first_benefit_target_mappings")
 @EqualsAndHashCode(callSuper = false)
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Slf4j
