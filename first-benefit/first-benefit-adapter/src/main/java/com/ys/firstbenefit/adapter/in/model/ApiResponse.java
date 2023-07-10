@@ -7,10 +7,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class ApiResponse {
 
-    String status = "success";
     Object data;
-
-    public ApiResponse(Object data) {
-        this.data = data;
-    }
 }
