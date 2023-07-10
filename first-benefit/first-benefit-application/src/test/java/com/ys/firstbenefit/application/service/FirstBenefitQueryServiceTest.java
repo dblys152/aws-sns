@@ -1,8 +1,10 @@
 package com.ys.firstbenefit.application.service;
 
+import com.ys.firstbenefit.application.port.in.GetFirstBenefitParams;
 import com.ys.firstbenefit.application.port.out.LoadFirstBenefitPort;
 import com.ys.firstbenefit.domain.FirstBenefits;
 import com.ys.refs.user.domain.UserId;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -10,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -26,13 +27,34 @@ class FirstBenefitQueryServiceTest {
     @Mock
     private LoadFirstBenefitPort loadFirstBenefitPort;
 
+    private FirstBenefits mockFirstBenefits;
+
+    @BeforeEach
+    void setUp() {
+        mockFirstBenefits = mock(FirstBenefits.class);
+    }
+
     @Test
     void first_benefit_목록_조회() {
-        given(loadFirstBenefitPort.findAllByUserId(ANY_USER_ID)).willReturn(mock(FirstBenefits.class));
+        GetFirstBenefitParams params = GetFirstBenefitParams.builder().build();
+        given(loadFirstBenefitPort.findAllByParams(params)).willReturn(mockFirstBenefits);
 
-        FirstBenefits actual = sut.getAllByUserId(ANY_USER_ID);
+        FirstBenefits actual = sut.getAllByParams(params);
 
         assertThat(actual).isNotNull();
-        verify(loadFirstBenefitPort).findAllByUserId(ANY_USER_ID);
+        verify(loadFirstBenefitPort).findAllByParams(params);
+    }
+
+    @Test
+    void 유저의_first_benefit_목록_조회() {
+        GetFirstBenefitParams params = GetFirstBenefitParams.builder()
+                .userId(ANY_USER_ID)
+                .build();
+        given(loadFirstBenefitPort.findAllByParams(params)).willReturn(mockFirstBenefits);
+
+        FirstBenefits actual = sut.getAllByParams(params);
+
+        assertThat(actual).isNotNull();
+        verify(loadFirstBenefitPort).findAllByParams(params);
     }
 }
