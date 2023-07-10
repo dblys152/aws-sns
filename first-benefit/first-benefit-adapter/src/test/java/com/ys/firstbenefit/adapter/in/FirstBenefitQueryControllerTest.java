@@ -1,5 +1,6 @@
 package com.ys.firstbenefit.adapter.in;
 
+import com.ys.firstbenefit.application.port.in.GetFirstBenefitParams;
 import com.ys.firstbenefit.application.port.in.GetFirstBenefitQuery;
 import com.ys.firstbenefit.domain.FirstBenefits;
 import com.ys.refs.user.domain.UserId;
@@ -10,10 +11,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
-
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -30,15 +30,20 @@ class FirstBenefitQueryControllerTest {
     private GetFirstBenefitQuery getFirstBenefitQuery;
 
     @Test
-    void get_first_benefits() throws Exception {
-        FirstBenefits firstBenefits = FirstBenefits.of(new ArrayList<>());
-        given(getFirstBenefitQuery.getAllByUserId(UserId.of(ANY_USER_ID))).willReturn(firstBenefits);
+    void 유저의_first_benefits를_조회한다() throws Exception {
+        GetFirstBenefitParams params = GetFirstBenefitParams.builder()
+                .userId(UserId.of(ANY_USER_ID))
+                .build();
+        FirstBenefits firstBenefits = mock(FirstBenefits.class);
+        given(getFirstBenefitQuery.getAllByParams(params)).willReturn(firstBenefits);
+        given(firstBenefits.isEmpty()).willReturn(false);
 
-        mockMvc.perform(get("/v1/first-benefits/{userId}", ANY_USER_ID))
+        mockMvc.perform(get("/v1/first-benefits")
+                        .param("userId", ANY_USER_ID))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 
         then(getFirstBenefitQuery).should()
-                .getAllByUserId(UserId.of(ANY_USER_ID));
+                .getAllByParams(params);
     }
 }
