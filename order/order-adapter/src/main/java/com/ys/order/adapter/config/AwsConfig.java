@@ -3,10 +3,12 @@ package com.ys.order.adapter.config;
 import com.ys.order.application.message.SnsSenderMapping;
 import com.ys.order.application.message.SqsSenderMapping;
 import com.ys.order.domain.event.OrderCompletedEvent;
+import io.awspring.cloud.sns.core.SnsTemplate;
 import io.awspring.cloud.sqs.operations.SqsTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sqs.SqsAsyncClient;
 
 @Configuration
@@ -21,6 +23,16 @@ public class AwsConfig {
     @Bean
     public SqsAsyncClient sqsAsyncClient() {
         return SqsAsyncClient.builder().build();
+    }
+
+    @Bean
+    public SnsClient snsClient() {
+        return SnsClient.builder().build();
+    }
+
+    @Bean
+    public SnsTemplate snsTemplate() {
+        return new SnsTemplate(snsClient());
     }
 
     @Bean
