@@ -27,7 +27,7 @@ public class FirstBenefitEntityRepositorySupport {
     public List<FirstBenefitEntity> findAllByParams(GetFirstBenefitParams params) {
         BooleanBuilder builder = new BooleanBuilder();
         if (params.getUserId() != null) {
-            builder.and(firstBenefitEntity.userId.eq(params.getUserId().getId()));
+            builder.and(firstBenefitEntity.userId.eq(params.getUserId()));
         }
 
         return queryFactory.selectFrom(firstBenefitEntity)

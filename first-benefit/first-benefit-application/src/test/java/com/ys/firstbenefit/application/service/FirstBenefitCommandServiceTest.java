@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.verify;
+import static org.mockito.BDDMockito.then;
 
 @ExtendWith(MockitoExtension.class)
 class FirstBenefitCommandServiceTest {
@@ -57,6 +57,7 @@ class FirstBenefitCommandServiceTest {
         FirstBenefit actual = sut.create(command);
 
         assertThat(actual).isNotNull();
-        verify(recordFirstBenefitPort).save(any(FirstBenefit.class));
+        then(recordFirstBenefitPort).should()
+                .save(any(FirstBenefit.class));
     }
 }

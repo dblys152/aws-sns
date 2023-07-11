@@ -1,7 +1,6 @@
 package com.ys.firstbenefit.application.port.in;
 
 import com.ys.firstbenefit.common.SelfValidating;
-import com.ys.refs.user.domain.UserId;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -10,10 +9,10 @@ import lombok.ToString;
 @ToString
 public class GetFirstBenefitParams extends SelfValidating<GetFirstBenefitParams> {
 
-    private UserId userId;
+    private String userId;
 
     @Builder
-    public GetFirstBenefitParams(UserId userId) {
+    public GetFirstBenefitParams(String userId) {
         this.userId = userId;
         validateSelf();
     }

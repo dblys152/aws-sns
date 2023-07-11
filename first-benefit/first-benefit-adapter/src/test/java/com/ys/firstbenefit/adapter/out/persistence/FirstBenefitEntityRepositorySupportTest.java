@@ -5,7 +5,6 @@ import com.ys.firstbenefit.adapter.out.persistence.fixture.SupportFirstBenefitEn
 import com.ys.firstbenefit.application.port.in.GetFirstBenefitParams;
 import com.ys.firstbenefit.domain.FirstBenefitStatus;
 import com.ys.firstbenefit.domain.FirstBenefitType;
-import com.ys.refs.user.domain.UserId;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -64,7 +63,7 @@ class FirstBenefitEntityRepositorySupportTest extends SupportFirstBenefitEntityF
     void 유저의_전체_목록_조회() {
         FirstBenefitEntity saved = repository.save(entity);
         GetFirstBenefitParams params = GetFirstBenefitParams.builder()
-                .userId(UserId.of(ANY_USER_ID))
+                .userId(ANY_USER_ID)
                 .build();
 
         List<FirstBenefitEntity> actual = repositorySupport.findAllByParams(params);
