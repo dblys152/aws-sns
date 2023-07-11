@@ -5,7 +5,6 @@ import com.ys.firstbenefit.adapter.in.model.FirstBenefitModel;
 import com.ys.firstbenefit.application.port.in.GetFirstBenefitParams;
 import com.ys.firstbenefit.application.port.in.GetFirstBenefitQuery;
 import com.ys.firstbenefit.domain.FirstBenefits;
-import com.ys.refs.user.domain.UserId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,7 +29,7 @@ public class FirstBenefitQueryController {
             @RequestParam(value = "userId", required = false) String userId) {
 
         GetFirstBenefitParams params = GetFirstBenefitParams.builder()
-                .userId(UserId.of(userId))
+                .userId(userId)
                 .build();
         FirstBenefits firstBenefits = getFirstBenefitQuery.getAllByParams(params);
 
