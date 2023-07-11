@@ -1,9 +1,10 @@
 package com.ys.secondbenefit.application;
 
-import com.ys.refs.user.domain.UserId;
+import com.ys.secondbenefit.application.port.in.GetSecondBenefitParams;
 import com.ys.secondbenefit.application.port.out.LoadSecondBenefitPort;
 import com.ys.secondbenefit.application.service.SecondBenefitQueryService;
 import com.ys.secondbenefit.domain.SecondBenefits;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,13 +13,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class SecondBenefitQueryServiceTest {
 
-    private static final UserId ANY_USER_ID = UserId.of("ANY_USER_ID");
+    private static final String ANY_USER_ID = "ANY_USER_ID";
 
     @InjectMocks
     private SecondBenefitQueryService sut;
@@ -26,13 +27,36 @@ class SecondBenefitQueryServiceTest {
     @Mock
     private LoadSecondBenefitPort loadSecondBenefitPort;
 
+    private SecondBenefits mockSecondBenefits;
+
+    @BeforeEach
+    void setUp() {
+        mockSecondBenefits = mock(SecondBenefits.class);
+    }
+
     @Test
     void second_benefit_목록_조회() {
-        given(loadSecondBenefitPort.findAllByUserId(ANY_USER_ID)).willReturn(mock(SecondBenefits.class));
+        GetSecondBenefitParams params = GetSecondBenefitParams.builder().build();
+        given(loadSecondBenefitPort.findAllByParams(params)).willReturn(mockSecondBenefits);
 
-        SecondBenefits actual = sut.getAllByUserId(ANY_USER_ID);
+        SecondBenefits actual = sut.getAllByParams(params);
 
         assertThat(actual).isNotNull();
-        verify(loadSecondBenefitPort).findAllByUserId(ANY_USER_ID);
+        then(loadSecondBenefitPort).should()
+                .findAllByParams(params);
+    }
+
+    @Test
+    void 유저의_second_benefit_목록_조회() {
+        GetSecondBenefitParams params = GetSecondBenefitParams.builder()
+                .userId(ANY_USER_ID)
+                .build();
+        given(loadSecondBenefitPort.findAllByParams(params)).willReturn(mockSecondBenefits);
+
+        SecondBenefits actual = sut.getAllByParams(params);
+
+        assertThat(actual).isNotNull();
+        then(loadSecondBenefitPort).should()
+                .findAllByParams(params);
     }
 }

@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.verify;
+import static org.mockito.BDDMockito.then;
 
 @ExtendWith(MockitoExtension.class)
 class SecondBenefitCommandServiceTest {
@@ -50,7 +50,7 @@ class SecondBenefitCommandServiceTest {
     }
 
     @Test
-    void FIRST_BENEFIT_생성() {
+    void SECOND_BENEFIT_생성() {
         CreateSecondBenefitCommand command = new CreateSecondBenefitCommand(
                 ANY_USER_ID, ANY_TARGET_ID, SecondBenefitType.ORDER);
         given(recordSecondBenefitPort.save(any(SecondBenefit.class))).willReturn(secondBenefit);
@@ -58,6 +58,7 @@ class SecondBenefitCommandServiceTest {
         SecondBenefit actual = sut.create(command);
 
         assertThat(actual).isNotNull();
-        verify(recordSecondBenefitPort).save(any(SecondBenefit.class));
+        then(recordSecondBenefitPort).should()
+                .save(any(SecondBenefit.class));
     }
 }

@@ -1,6 +1,6 @@
 package com.ys.secondbenefit.application.service;
 
-import com.ys.refs.user.domain.UserId;
+import com.ys.secondbenefit.application.port.in.GetSecondBenefitParams;
 import com.ys.secondbenefit.application.port.in.GetSecondBenefitQuery;
 import com.ys.secondbenefit.application.port.out.LoadSecondBenefitPort;
 import com.ys.secondbenefit.domain.SecondBenefits;
@@ -14,7 +14,7 @@ public class SecondBenefitQueryService implements GetSecondBenefitQuery {
     private final LoadSecondBenefitPort loadSecondBenefitPort;
 
     @Override
-    public SecondBenefits getAllByUserId(UserId userId) {
-        return loadSecondBenefitPort.findAllByUserId(userId);
+    public SecondBenefits getAllByParams(GetSecondBenefitParams params) {
+        return loadSecondBenefitPort.findAllByParams(params);
     }
 }

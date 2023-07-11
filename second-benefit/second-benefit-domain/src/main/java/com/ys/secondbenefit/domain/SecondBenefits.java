@@ -8,4 +8,8 @@ import java.util.List;
 public class SecondBenefits {
 
     List<SecondBenefit> items;
+
+    public boolean isEmpty() {
+        return this.items.isEmpty();
+    }
 }

@@ -2,6 +2,7 @@ package com.ys.secondbenefit.adapter.out.persistence;
 
 import com.ys.secondbenefit.adapter.config.DataJpaConfig;
 import com.ys.secondbenefit.adapter.out.persistence.fixture.SupportSecondBenefitEntityFixture;
+import com.ys.secondbenefit.application.port.in.GetSecondBenefitParams;
 import com.ys.secondbenefit.domain.SecondBenefitStatus;
 import com.ys.secondbenefit.domain.SecondBenefitType;
 import jakarta.persistence.EntityManager;
@@ -48,10 +49,24 @@ class SecondBenefitEntityRepositorySupportTest extends SupportSecondBenefitEntit
     }
 
     @Test
-    void find_all_by_user_id() {
+    void 전체_목록_조회() {
         SecondBenefitEntity saved = repository.save(entity);
 
-        List<SecondBenefitEntity> actual = repositorySupport.findAllByUserId(ANY_USER_ID);
+        List<SecondBenefitEntity> actual = repositorySupport.findAllByParams(GetSecondBenefitParams.builder().build());
+
+        assertAll(
+                () -> assertThat(actual).isNotEmpty()
+        );
+    }
+
+    @Test
+    void 유저의_전체_목록_조회() {
+        SecondBenefitEntity saved = repository.save(entity);
+        GetSecondBenefitParams params = GetSecondBenefitParams.builder()
+                .userId(ANY_USER_ID)
+                .build();
+
+        List<SecondBenefitEntity> actual = repositorySupport.findAllByParams(params);
 
         assertAll(
                 () -> assertThat(actual).isNotEmpty(),
