@@ -1,7 +1,5 @@
-package com.ys.firstbenefit.application.port.in;
+package com.ys.firstbenefit.domain;
 
-import com.ys.firstbenefit.common.SelfValidating;
-import com.ys.firstbenefit.domain.FirstBenefitType;
 import com.ys.refs.user.domain.UserId;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;

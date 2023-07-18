@@ -1,6 +1,5 @@
 package com.ys.firstbenefit.application.service;
 
-import com.ys.firstbenefit.application.port.in.CreateFirstBenefitCommand;
 import com.ys.firstbenefit.application.port.out.RecordFirstBenefitPort;
 import com.ys.firstbenefit.domain.*;
 import com.ys.refs.user.domain.UserId;

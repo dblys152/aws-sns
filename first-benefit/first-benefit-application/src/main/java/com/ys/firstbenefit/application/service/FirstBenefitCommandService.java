@@ -1,8 +1,8 @@
 package com.ys.firstbenefit.application.service;
 
-import com.ys.firstbenefit.application.port.in.CreateFirstBenefitCommand;
 import com.ys.firstbenefit.application.port.in.CreateFirstBenefitUseCase;
 import com.ys.firstbenefit.application.port.out.RecordFirstBenefitPort;
+import com.ys.firstbenefit.domain.CreateFirstBenefitCommand;
 import com.ys.firstbenefit.domain.FirstBenefit;
 import com.ys.firstbenefit.domain.FirstBenefitType;
 import lombok.RequiredArgsConstructor;
