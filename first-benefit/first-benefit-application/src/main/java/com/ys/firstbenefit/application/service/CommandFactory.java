@@ -1,6 +1,6 @@
 package com.ys.firstbenefit.application.service;
 
-public interface CommandFactory<R, T> {
+public interface CommandFactory<R, C> {
 
-    T create(R request);
+    C create(R request);
 }
