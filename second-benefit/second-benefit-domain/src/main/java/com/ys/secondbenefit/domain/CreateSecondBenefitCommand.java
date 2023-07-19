@@ -1,8 +1,6 @@
-package com.ys.secondbenefit.application.port.in;
+package com.ys.secondbenefit.domain;
 
 import com.ys.refs.user.domain.UserId;
-import com.ys.secondbenefit.common.SelfValidating;
-import com.ys.secondbenefit.domain.SecondBenefitType;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

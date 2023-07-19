@@ -1,4 +1,4 @@
-package com.ys.secondbenefit.common;
+package com.ys.secondbenefit.application.common;
 
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;
@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Component
-public @interface Port {
+public @interface UseCase {
 
     @AliasFor(annotation = Component.class)
     String value() default "";

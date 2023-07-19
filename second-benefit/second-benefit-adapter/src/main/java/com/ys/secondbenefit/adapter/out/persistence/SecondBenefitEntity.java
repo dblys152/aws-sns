@@ -56,7 +56,7 @@ public class SecondBenefitEntity {
                 secondBenefit.getType(),
                 secondBenefit.getStatus(),
                 secondBenefit.getExpiredAt().getValue(),
-                SecondBenefitTargetMappingEntity.fromDomain(secondBenefit.getSecondBenefitTargetMapping()),
+                SecondBenefitTargetMappingEntity.fromDomain(secondBenefit),
                 secondBenefit.getCreatedAt(),
                 secondBenefit.getModifiedAt(),
                 secondBenefit.getVersion()

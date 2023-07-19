@@ -1,8 +1,7 @@
-package com.ys.secondbenefit.application;
+package com.ys.secondbenefit.application.service;
 
 import com.ys.secondbenefit.application.port.in.GetSecondBenefitParams;
 import com.ys.secondbenefit.application.port.out.LoadSecondBenefitPort;
-import com.ys.secondbenefit.application.service.SecondBenefitQueryService;
 import com.ys.secondbenefit.domain.SecondBenefits;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

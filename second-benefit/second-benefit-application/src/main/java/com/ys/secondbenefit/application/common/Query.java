@@ -1,4 +1,4 @@
-package com.ys.secondbenefit.common;
+package com.ys.secondbenefit.application.common;
 
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;

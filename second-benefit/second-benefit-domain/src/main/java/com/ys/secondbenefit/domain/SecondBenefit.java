@@ -39,22 +39,27 @@ public class SecondBenefit {
             UserId userId,
             SecondBenefitType type,
             SecondBenefitStatus status,
-            SecondBenefitExpiredAt expiredAt
+            SecondBenefitExpiredAt expiredAt,
+            SecondBenefitTargetMapping secondBenefitTargetMapping
     ) {
         this.id = id;
         this.userId = userId;
         this.type = type;
         this.status = status;
         this.expiredAt = expiredAt;
+        this.secondBenefitTargetMapping = secondBenefitTargetMapping;
     }
 
-    public static SecondBenefit create(UserId userId, SecondBenefitType type) {
+    public static SecondBenefit create(CreateSecondBenefitCommand command) {
         SecondBenefitId id = SecondBenefitId.of(Generators.timeBasedEpochGenerator().generate().toString());
-        return new SecondBenefit(id, userId, type, AVAILABLE, SecondBenefitExpiredAt.create(type));
-    }
-
-    public void createTargetMapping(String targetId) {
-        this.secondBenefitTargetMapping = SecondBenefitTargetMapping.create(this.id, targetId);
+        return new SecondBenefit(
+                id,
+                command.getUserId(),
+                command.getType(),
+                AVAILABLE,
+                SecondBenefitExpiredAt.create(command.getType()),
+                SecondBenefitTargetMapping.create(command.getTargetId())
+        );
     }
 
     public static SecondBenefit of(

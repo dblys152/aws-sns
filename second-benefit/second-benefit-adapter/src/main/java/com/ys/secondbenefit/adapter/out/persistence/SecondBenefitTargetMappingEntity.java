@@ -1,6 +1,6 @@
 package com.ys.secondbenefit.adapter.out.persistence;
 
-import com.ys.secondbenefit.domain.SecondBenefitId;
+import com.ys.secondbenefit.domain.SecondBenefit;
 import com.ys.secondbenefit.domain.SecondBenefitTargetMapping;
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,9 +27,10 @@ public class SecondBenefitTargetMappingEntity {
     @Version
     private Long version;
 
-    public static SecondBenefitTargetMappingEntity fromDomain(SecondBenefitTargetMapping secondBenefitTargetMapping) {
+    public static SecondBenefitTargetMappingEntity fromDomain(SecondBenefit secondBenefit) {
+        SecondBenefitTargetMapping secondBenefitTargetMapping = secondBenefit.getSecondBenefitTargetMapping();
         return new SecondBenefitTargetMappingEntity(
-                secondBenefitTargetMapping.getSecondBenefitId().getId(),
+                secondBenefit.getId().getId(),
                 secondBenefitTargetMapping.getTargetId(),
                 secondBenefitTargetMapping.getVersion()
         );
@@ -37,7 +38,6 @@ public class SecondBenefitTargetMappingEntity {
 
     public SecondBenefitTargetMapping toDomain() {
         return SecondBenefitTargetMapping.of(
-                SecondBenefitId.of(this.secondBenefitId),
                 this.targetId,
                 this.version
         );

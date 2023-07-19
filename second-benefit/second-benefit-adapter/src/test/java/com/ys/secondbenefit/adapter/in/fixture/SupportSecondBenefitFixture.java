@@ -18,7 +18,7 @@ public class SupportSecondBenefitFixture {
             SecondBenefitType.ORDER,
             SecondBenefitStatus.AVAILABLE,
             SecondBenefitExpiredAt.of(ANY_EXPIRED_AT),
-            SecondBenefitTargetMapping.of(ANY_SECOND_BENEFIT_ID, ANY_ORDER_ID, 0L),
+            SecondBenefitTargetMapping.of(ANY_ORDER_ID, 0L),
             NOW, NOW, 0L
     );
 }

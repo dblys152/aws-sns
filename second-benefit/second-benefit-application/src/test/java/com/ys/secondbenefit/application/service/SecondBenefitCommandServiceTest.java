@@ -1,9 +1,8 @@
-package com.ys.secondbenefit.application;
+package com.ys.secondbenefit.application.service;
 
 import com.ys.refs.user.domain.UserId;
-import com.ys.secondbenefit.application.port.in.CreateSecondBenefitCommand;
+import com.ys.secondbenefit.domain.CreateSecondBenefitCommand;
 import com.ys.secondbenefit.application.port.out.RecordSecondBenefitPort;
-import com.ys.secondbenefit.application.service.SecondBenefitCommandService;
 import com.ys.secondbenefit.domain.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,7 +43,7 @@ class SecondBenefitCommandServiceTest {
                 SecondBenefitType.ORDER,
                 SecondBenefitStatus.AVAILABLE,
                 ANY_EXPIRED_AT,
-                SecondBenefitTargetMapping.of(ANY_ID, ANY_TARGET_ID, 0L),
+                SecondBenefitTargetMapping.of(ANY_TARGET_ID, 0L),
                 NOW, NOW, 0L
         );
     }

@@ -7,13 +7,11 @@ import lombok.Value;
 public class SecondBenefitTargetMapping {
 
     @NotNull
-    SecondBenefitId secondBenefitId;
-    @NotNull
     String targetId;
 
     Long version;
 
-    public static SecondBenefitTargetMapping create(SecondBenefitId secondBenefitId, String targetId) {
-        return new SecondBenefitTargetMapping(secondBenefitId, targetId, null);
+    public static SecondBenefitTargetMapping create(String targetId) {
+        return new SecondBenefitTargetMapping(targetId, null);
     }
 }

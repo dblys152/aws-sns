@@ -1,4 +1,4 @@
-package com.ys.secondbenefit.common;
+package com.ys.secondbenefit.domain;
 
 import jakarta.validation.*;
 

@@ -1,5 +1,6 @@
 package com.ys.secondbenefit.application.port.in;
 
+import com.ys.secondbenefit.domain.CreateSecondBenefitCommand;
 import com.ys.secondbenefit.domain.SecondBenefit;
 
 public interface CreateSecondBenefitUseCase {

@@ -13,8 +13,10 @@ class SecondBenefitTest {
 
     @Test
     void SECOND_BENEFIT을_생성한다() {
-        SecondBenefit actual = SecondBenefit.create(ANY_USER_ID, SecondBenefitType.ORDER);
-        actual.createTargetMapping(ANY_TARGET_ID);
+        CreateSecondBenefitCommand command = new CreateSecondBenefitCommand(
+                ANY_USER_ID, ANY_TARGET_ID, SecondBenefitType.ORDER);
+
+        SecondBenefit actual = SecondBenefit.create(command);
 
         assertAll(
                 () -> assertThat(actual).isNotNull(),

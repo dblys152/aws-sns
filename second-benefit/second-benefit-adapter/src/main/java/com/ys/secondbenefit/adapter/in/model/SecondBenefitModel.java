@@ -20,7 +20,7 @@ public class SecondBenefitModel {
     SecondBenefitType type;
     SecondBenefitStatus status;
     LocalDateTime expiredAt;
-    FirstBenefitTargetMappingModel firstBenefitTargetMapping;
+    SecondBenefitTargetMappingModel secondBenefitTargetMapping;
 
     LocalDateTime createdAt;
     LocalDateTime modifiedAt;
@@ -28,7 +28,7 @@ public class SecondBenefitModel {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class FirstBenefitTargetMappingModel {
+    public static class SecondBenefitTargetMappingModel {
         String targetId;
     }
 
@@ -41,7 +41,7 @@ public class SecondBenefitModel {
                 secondBenefit.getType(),
                 secondBenefit.getStatus(),
                 secondBenefit.getExpiredAt().getValue(),
-                new FirstBenefitTargetMappingModel(secondBenefitTargetMapping.getTargetId()),
+                new SecondBenefitTargetMappingModel(secondBenefitTargetMapping.getTargetId()),
                 secondBenefit.getCreatedAt(),
                 secondBenefit.getModifiedAt()
         );
