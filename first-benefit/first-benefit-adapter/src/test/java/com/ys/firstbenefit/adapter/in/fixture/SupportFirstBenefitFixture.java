@@ -18,7 +18,7 @@ public class SupportFirstBenefitFixture {
             FirstBenefitType.ORDER,
             FirstBenefitStatus.AVAILABLE,
             FirstBenefitExpiredAt.of(ANY_EXPIRED_AT),
-            FirstBenefitTargetMapping.of(ANY_FIRST_BENEFIT_ID, ANY_ORDER_ID, 0L),
+            FirstBenefitTargetMapping.of(ANY_ORDER_ID, 0L),
             NOW, NOW, 0L
     );
 }

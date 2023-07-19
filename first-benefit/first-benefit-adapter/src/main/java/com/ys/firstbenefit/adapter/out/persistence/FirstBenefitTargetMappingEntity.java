@@ -1,6 +1,6 @@
 package com.ys.firstbenefit.adapter.out.persistence;
 
-import com.ys.firstbenefit.domain.FirstBenefitId;
+import com.ys.firstbenefit.domain.FirstBenefit;
 import com.ys.firstbenefit.domain.FirstBenefitTargetMapping;
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,9 +27,10 @@ public class FirstBenefitTargetMappingEntity {
     @Version
     private Long version;
 
-    public static FirstBenefitTargetMappingEntity fromDomain(FirstBenefitTargetMapping firstBenefitTargetMapping) {
+    public static FirstBenefitTargetMappingEntity fromDomain(FirstBenefit firstBenefit) {
+        FirstBenefitTargetMapping firstBenefitTargetMapping = firstBenefit.getFirstBenefitTargetMapping();
         return new FirstBenefitTargetMappingEntity(
-                firstBenefitTargetMapping.getFirstBenefitId().getId(),
+                firstBenefit.getId().getId(),
                 firstBenefitTargetMapping.getTargetId(),
                 firstBenefitTargetMapping.getVersion()
         );
@@ -37,7 +38,6 @@ public class FirstBenefitTargetMappingEntity {
 
     public FirstBenefitTargetMapping toDomain() {
         return FirstBenefitTargetMapping.of(
-                FirstBenefitId.of(this.firstBenefitId),
                 this.targetId,
                 this.version
         );

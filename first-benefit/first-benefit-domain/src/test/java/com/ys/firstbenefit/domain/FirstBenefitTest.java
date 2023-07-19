@@ -13,8 +13,10 @@ class FirstBenefitTest {
 
     @Test
     void FIRST_BENEFIT을_생성한다() {
-        FirstBenefit actual = FirstBenefit.create(ANY_USER_ID, FirstBenefitType.ORDER);
-        actual.createTargetMapping(ANY_TARGET_ID);
+        CreateFirstBenefitCommand command = new CreateFirstBenefitCommand(
+                ANY_USER_ID, ANY_TARGET_ID, FirstBenefitType.ORDER);
+
+        FirstBenefit actual = FirstBenefit.create(command);
 
         assertAll(
                 () -> assertThat(actual).isNotNull(),

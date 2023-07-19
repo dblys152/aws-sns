@@ -42,7 +42,7 @@ class FirstBenefitCommandServiceTest {
                 FirstBenefitType.ORDER,
                 FirstBenefitStatus.AVAILABLE,
                 ANY_EXPIRED_AT,
-                FirstBenefitTargetMapping.of(ANY_ID, ANY_TARGET_ID, 0L),
+                FirstBenefitTargetMapping.of(ANY_TARGET_ID, 0L),
                 NOW, NOW, 0L
         );
     }

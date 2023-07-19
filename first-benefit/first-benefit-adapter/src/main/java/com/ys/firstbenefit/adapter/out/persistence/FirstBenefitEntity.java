@@ -56,7 +56,7 @@ public class FirstBenefitEntity {
                 firstBenefit.getType(),
                 firstBenefit.getStatus(),
                 firstBenefit.getExpiredAt().getValue(),
-                FirstBenefitTargetMappingEntity.fromDomain(firstBenefit.getFirstBenefitTargetMapping()),
+                FirstBenefitTargetMappingEntity.fromDomain(firstBenefit),
                 firstBenefit.getCreatedAt(),
                 firstBenefit.getModifiedAt(),
                 firstBenefit.getVersion()

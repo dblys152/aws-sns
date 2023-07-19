@@ -39,22 +39,27 @@ public class FirstBenefit {
             UserId userId,
             FirstBenefitType type,
             FirstBenefitStatus status,
-            FirstBenefitExpiredAt expiredAt
+            FirstBenefitExpiredAt expiredAt,
+            FirstBenefitTargetMapping firstBenefitTargetMapping
     ) {
         this.id = id;
         this.userId = userId;
         this.type = type;
         this.status = status;
         this.expiredAt = expiredAt;
+        this.firstBenefitTargetMapping = firstBenefitTargetMapping;
     }
 
-    public static FirstBenefit create(UserId userId, FirstBenefitType type) {
+    public static FirstBenefit create(CreateFirstBenefitCommand command) {
         FirstBenefitId id = FirstBenefitId.of(Generators.timeBasedEpochGenerator().generate().toString());
-        return new FirstBenefit(id, userId, type, AVAILABLE, FirstBenefitExpiredAt.create(type));
-    }
-
-    public void createTargetMapping(String targetId) {
-        this.firstBenefitTargetMapping = FirstBenefitTargetMapping.create(this.id, targetId);
+        return new FirstBenefit(
+                id,
+                command.getUserId(),
+                command.getType(),
+                AVAILABLE,
+                FirstBenefitExpiredAt.create(command.getType()),
+                FirstBenefitTargetMapping.create(command.getTargetId())
+        );
     }
 
     public static FirstBenefit of(
