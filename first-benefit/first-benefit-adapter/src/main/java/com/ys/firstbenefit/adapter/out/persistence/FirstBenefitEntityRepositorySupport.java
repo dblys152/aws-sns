@@ -31,7 +31,8 @@ public class FirstBenefitEntityRepositorySupport {
         }
 
         return queryFactory.selectFrom(firstBenefitEntity)
-                .innerJoin(firstBenefitTargetMappingEntity)
+                .leftJoin(firstBenefitTargetMappingEntity)
+                .on(firstBenefitEntity.id.eq(firstBenefitTargetMappingEntity.firstBenefitId))
                 .fetchJoin()
                 .where(builder)
                 .fetch();

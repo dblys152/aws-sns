@@ -55,7 +55,8 @@ class FirstBenefitEntityRepositorySupportTest extends SupportFirstBenefitEntityF
         List<FirstBenefitEntity> actual = repositorySupport.findAllByParams(GetFirstBenefitParams.builder().build());
 
         assertAll(
-                () -> assertThat(actual).isNotEmpty()
+                () -> assertThat(actual).isNotEmpty(),
+                () -> assertThat(actual.get(0).getFirstBenefitTargetMappingEntity()).isNotNull()
         );
     }
 

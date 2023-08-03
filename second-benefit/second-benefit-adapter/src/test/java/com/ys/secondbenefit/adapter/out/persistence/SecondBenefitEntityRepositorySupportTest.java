@@ -55,7 +55,8 @@ class SecondBenefitEntityRepositorySupportTest extends SupportSecondBenefitEntit
         List<SecondBenefitEntity> actual = repositorySupport.findAllByParams(GetSecondBenefitParams.builder().build());
 
         assertAll(
-                () -> assertThat(actual).isNotEmpty()
+                () -> assertThat(actual).isNotEmpty(),
+                () -> assertThat( actual.get(0).getSecondBenefitTargetMappingEntity()).isNotNull()
         );
     }
 
