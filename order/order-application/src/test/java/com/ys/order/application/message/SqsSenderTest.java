@@ -27,7 +27,7 @@ class SqsSenderTest {
     private SqsSender sut;
 
     @Mock
-    private SqsSenderMapping mapping;
+    private SqsMapping mapping;
     @Mock
     private SqsTemplate sqsTemplate;
 

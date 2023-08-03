@@ -1,7 +1,7 @@
 package com.ys.order.adapter.config;
 
-import com.ys.order.application.message.SnsSenderMapping;
-import com.ys.order.application.message.SqsSenderMapping;
+import com.ys.order.application.message.SnsMapping;
+import com.ys.order.application.message.SqsMapping;
 import com.ys.order.domain.event.OrderCompletedEvent;
 import io.awspring.cloud.sns.core.SnsTemplate;
 import io.awspring.cloud.sqs.operations.SqsTemplate;
@@ -41,15 +41,15 @@ public class AwsConfig {
     }
 
     @Bean
-    public SnsSenderMapping snsSenderMapping(){
-        SnsSenderMapping mapping = new SnsSenderMapping();
+    public SnsMapping snsMapping(){
+        SnsMapping mapping = new SnsMapping();
         mapping.add(OrderCompletedEvent.class.getName(), ORDER_COMPLETED_TOPIC);
         return mapping;
     }
 
     @Bean
-    public SqsSenderMapping sqsSenderMapping(){
-        SqsSenderMapping mapping = new SqsSenderMapping();
+    public SqsMapping sqsMapping(){
+        SqsMapping mapping = new SqsMapping();
         mapping.add(OrderCompletedEvent.class.getName(), FIRST_BENEFIT_CREATION_QUEUE);
         return mapping;
     }

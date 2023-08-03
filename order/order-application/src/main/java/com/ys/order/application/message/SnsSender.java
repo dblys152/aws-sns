@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class SnsSender implements MessageSender<String> {
 
     private final SnsTemplate snsTemplate;
-    private final SnsSenderMapping mapping;
+    private final SnsMapping mapping;
 
     @Override
     public void send(Message<String> message) {

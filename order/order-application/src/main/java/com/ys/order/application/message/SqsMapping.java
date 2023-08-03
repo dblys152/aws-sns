@@ -3,7 +3,7 @@ package com.ys.order.application.message;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SqsSenderMapping implements MessageSenderMapping {
+public class SqsMapping implements MessageQueueMapping {
 
     private final Map<String, String> queue = new HashMap<>();
 

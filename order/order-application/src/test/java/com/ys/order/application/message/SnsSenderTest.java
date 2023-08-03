@@ -27,7 +27,7 @@ class SnsSenderTest {
     private SnsSender sut;
 
     @Mock
-    private SnsSenderMapping mapping;
+    private SnsMapping mapping;
     @Mock
     private SnsTemplate snsTemplate;
 

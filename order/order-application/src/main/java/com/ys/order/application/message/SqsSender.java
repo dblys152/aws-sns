@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class SqsSender implements MessageSender<DomainEvent> {
 
     private final SqsTemplate sqsTemplate;
-    private final SqsSenderMapping mapping;
+    private final SqsMapping mapping;
 
     @Override
     public void send(Message<DomainEvent> message) {
