@@ -35,7 +35,7 @@ class SnsSenderTest {
 
     @BeforeEach
     void setUp()  {
-        serializedDomainEvent = new DomainEvent<>(
+        serializedDomainEvent = DomainEvent.of(
                 OrderCompletedEvent.class.getName(),
                 new OrderCompletedEvent(ANY_ORDER_ID)
         ).serialize();

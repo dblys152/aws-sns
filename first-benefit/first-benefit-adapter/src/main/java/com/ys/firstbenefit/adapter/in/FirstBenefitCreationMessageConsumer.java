@@ -15,6 +15,7 @@ import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -24,8 +25,8 @@ public class FirstBenefitCreationMessageConsumer {
     private GeneralMessageProcessTemplate template = new GeneralMessageProcessTemplate();
     private final OrderCompletedEventProcessor processor;
 
-    @SqsListener(value = "${aws.sqs.FIRST_BENEFIT_CREATION_QUEUE}", factory = "defaultSqsListenerContainerFactory")
-    public void receive(Message<DomainEvent<String>> message, Acknowledgement ack) throws IOException {
+    @SqsListener(value = "${aws.sqs.FIRST_BENEFIT_CREATION_QUEUE}", factory = "sqsListenerContainerFactory")
+    public void receive(Message<DomainEvent> message, Acknowledgement ack) throws IOException {
         GeneralMessageProcessReturn processReturn = template.doProcess(message, OrderCompletedEvent.class, processor);
         switch (processReturn) {
             case IGNORE, SUCCESS -> {

@@ -2,7 +2,8 @@ package com.ys.order.application.listener;
 
 import com.ys.infra.message.DomainEvent;
 import com.ys.infra.message.GeneralMessage;
-import com.ys.order.application.message.*;
+import com.ys.order.application.message.SnsSender;
+import com.ys.order.application.message.SqsSender;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.Message;
@@ -21,8 +22,10 @@ public class DomainEventListener {
     public void on(DomainEvent event) {
         Message<String> snsMessage = new GeneralMessage<>(event.serialize());
         snsSender.send(snsMessage);
+
         Message<DomainEvent> sqsMessage = new GeneralMessage<>(event.serializePayload());
         sqsSender.send(sqsMessage);
+
         log.info("Receive DomainEvent name: {} OccurredAt: {}", event.getType(), event.getOccurredAt());
     }
 }

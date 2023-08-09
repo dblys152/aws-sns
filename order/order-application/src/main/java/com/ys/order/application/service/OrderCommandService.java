@@ -29,12 +29,10 @@ public class OrderCommandService implements CompleteOrderUseCase {
                 LocalDateTime.now()
         );
 
-        OrderCompletedEvent event = OrderCompletedEvent.fromDomain(completedOrder);
-        DomainEvent<OrderCompletedEvent> domainEvent = new DomainEvent(
+        eventPublisher.publishEvent(DomainEvent.of(
                 OrderCompletedEvent.class.getName(),
-                event
-        );
-        eventPublisher.publishEvent(domainEvent);
+                OrderCompletedEvent.fromDomain(completedOrder)
+        ));
 
         return completedOrder;
     }

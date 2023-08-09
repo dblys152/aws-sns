@@ -1,14 +1,9 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.1.0'
     id 'io.freefair.lombok' version '6.0.0-m2'
 }
 
 def javaProjects = [
-        project(":infra:message")
-]
-
-def springBootProjects = [
         project(":infra:message")
 ]
 
@@ -25,25 +20,18 @@ configure(javaProjects) {
     dependencies {
         implementation 'org.hibernate:hibernate-validator:6.2.0.Final'
         implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+        implementation 'org.glassfish:jakarta.el:4.0.2'
+        implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+        implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2'
+        implementation 'com.fasterxml.uuid:java-uuid-generator:4.1.0'
+
+        implementation 'org.springframework:spring-messaging:6.0.11'
 
         testImplementation(platform('org.junit:junit-bom:5.7.1'))
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
         testImplementation 'org.assertj:assertj-core:3.20.2'
         testImplementation 'org.mockito:mockito-junit-jupiter:5.3.1'
     }
-}
-
-configure(springBootProjects) {
-    apply plugin: "org.springframework.boot"
-
-    dependencies {
-        implementation platform("io.awspring.cloud:spring-cloud-aws-dependencies:3.0.1")
-        implementation 'io.awspring.cloud:spring-cloud-aws-starter-sqs'
-    }
-}
-
-bootJar {
-    enabled(false)
 }
 
 jar {

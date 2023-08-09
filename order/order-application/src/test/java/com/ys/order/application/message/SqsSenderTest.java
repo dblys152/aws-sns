@@ -35,7 +35,7 @@ class SqsSenderTest {
 
     @BeforeEach
     void setUp()  {
-        domainEvent = new DomainEvent<>(
+        domainEvent = DomainEvent.of(
                 OrderCompletedEvent.class.getName(),
                 new OrderCompletedEvent(ANY_ORDER_ID)
         ).serializePayload();

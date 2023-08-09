@@ -16,29 +16,29 @@ public class GeneralMessageProcessTemplate {
         this.eventValidator = new EventValidator();
     }
 
-    public <T> GeneralMessageProcessReturn doProcess(Message<DomainEvent<String>> message, Class<T> aEventClass, Consumer<T> processor) {
+    public <T> GeneralMessageProcessReturn doProcess(Message<DomainEvent> message, Class<T> aEventClass, Consumer<T> processor) {
         if (message == null || message.getPayload() == null) {
             log.error("Message or Message payload is null");
             return IGNORE;
         }
-        String messageId = String.valueOf(message.getHeaders().get("id"));
-        DomainEvent<String> payloadDomainEvent = message.getPayload();
+        DomainEvent<T> domainEvent = DomainEvent.deserializePayload(message.getPayload(), aEventClass);
+        String messageId = domainEvent.getId();
 
         if (aEventClass == null) {
-            log.error(String.format("aEventClass is null. MessageId is %s, Message Payload is %s", messageId, payloadDomainEvent));
+            log.error(String.format("aEventClass is null. MessageId is %s, Message Payload is %s", messageId, domainEvent));
             return RETRY;
         }
 
         if (processor == null) {
-            log.error(String.format("processor is null. MessageId is %s, Message Payload is %s", messageId, payloadDomainEvent));
+            log.error(String.format("processor is null. MessageId is %s, Message Payload is %s", messageId, domainEvent));
             return RETRY;
         }
 
         try {
             log.info(String.format("Received a message. EventType is %s, OccurredAt is %s",
-                    payloadDomainEvent.getType(), payloadDomainEvent.getOccurredAt()));
+                    domainEvent.getType(), domainEvent.getOccurredAt()));
 
-            T event = DomainEvent.deserializePayload(payloadDomainEvent, aEventClass).getPayload();
+            T event = domainEvent.getPayload();
 
             eventValidator.validateAndThrow(event);
 
