@@ -1,4 +1,4 @@
-package com.ys.secondbenefit.adapter.in.model;
+package com.ys.infra.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,5 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class ApiResponse {
 
+    int status;
     Object data;
 }

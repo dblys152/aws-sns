@@ -1,10 +1,10 @@
 package com.ys.firstbenefit.adapter.in;
 
-import com.ys.firstbenefit.adapter.in.model.ApiResponse;
 import com.ys.firstbenefit.adapter.in.model.FirstBenefitModel;
 import com.ys.firstbenefit.application.port.in.GetFirstBenefitParams;
 import com.ys.firstbenefit.application.port.in.GetFirstBenefitQuery;
 import com.ys.firstbenefit.domain.FirstBenefits;
+import com.ys.infra.utils.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -38,7 +38,7 @@ public class FirstBenefitQueryController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(
-                new ApiResponse(firstBenefits.getItems().stream()
+                new ApiResponse(HttpStatus.OK.value(), firstBenefits.getItems().stream()
                         .map(FirstBenefitModel::fromDomain)
                         .toList()));
     }

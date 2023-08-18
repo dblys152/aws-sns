@@ -1,4 +1,4 @@
-package com.ys.order.common;
+package com.ys.infra.utils;
 
 import jakarta.validation.*;
 

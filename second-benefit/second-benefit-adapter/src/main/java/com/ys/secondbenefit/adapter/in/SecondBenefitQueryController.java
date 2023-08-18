@@ -1,6 +1,6 @@
 package com.ys.secondbenefit.adapter.in;
 
-import com.ys.secondbenefit.adapter.in.model.ApiResponse;
+import com.ys.infra.utils.ApiResponse;
 import com.ys.secondbenefit.adapter.in.model.SecondBenefitModel;
 import com.ys.secondbenefit.application.port.in.GetSecondBenefitParams;
 import com.ys.secondbenefit.application.port.in.GetSecondBenefitQuery;
@@ -38,7 +38,7 @@ public class SecondBenefitQueryController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(
-                new ApiResponse(secondBenefits.getItems().stream()
+                new ApiResponse(HttpStatus.OK.value(), secondBenefits.getItems().stream()
                         .map(SecondBenefitModel::fromDomain)
                         .toList()));
     }

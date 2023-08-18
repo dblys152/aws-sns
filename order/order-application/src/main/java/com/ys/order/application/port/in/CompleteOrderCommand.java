@@ -1,6 +1,6 @@
 package com.ys.order.application.port.in;
 
-import com.ys.order.common.SelfValidating;
+import com.ys.infra.utils.SelfValidating;
 import com.ys.order.domain.core.OrderId;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;

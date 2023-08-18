@@ -1,5 +1,6 @@
 package com.ys.firstbenefit.domain;
 
+import com.ys.infra.utils.SelfValidating;
 import com.ys.refs.user.domain.UserId;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;

@@ -1,6 +1,6 @@
 package com.ys.order.adapter.in;
 
-import com.ys.order.adapter.in.model.ApiResponse;
+import com.ys.infra.utils.ApiResponse;
 import com.ys.order.adapter.in.model.OrderModel;
 import com.ys.order.application.port.in.CompleteOrderCommand;
 import com.ys.order.application.port.in.CompleteOrderUseCase;
@@ -32,6 +32,6 @@ public class OrderCommandController {
                 OrderId.of(orderId)));
 
         return ResponseEntity.status(HttpStatus.OK).body(
-                new ApiResponse(OrderModel.fromDomain(ordered)));
+                new ApiResponse(HttpStatus.OK.value(), OrderModel.fromDomain(ordered)));
     }
 }

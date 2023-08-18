@@ -1,5 +1,4 @@
 dependencies {
-    implementation project(':infra:message')
     implementation project(':refs:user')
     implementation project(':order:order-domain')
 }

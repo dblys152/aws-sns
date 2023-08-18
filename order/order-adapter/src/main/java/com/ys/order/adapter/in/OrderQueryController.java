@@ -1,6 +1,6 @@
 package com.ys.order.adapter.in;
 
-import com.ys.order.adapter.in.model.ApiResponse;
+import com.ys.infra.utils.ApiResponse;
 import com.ys.order.adapter.in.model.OrderModel;
 import com.ys.order.application.port.in.GetOrderQuery;
 import com.ys.order.domain.core.Order;
@@ -29,6 +29,6 @@ public class OrderQueryController {
         Order order = getOrderQuery.get(OrderId.of(orderId));
 
         return ResponseEntity.status(HttpStatus.OK).body(
-                new ApiResponse(OrderModel.fromDomain(order)));
+                new ApiResponse(HttpStatus.OK.value(), OrderModel.fromDomain(order)));
     }
 }

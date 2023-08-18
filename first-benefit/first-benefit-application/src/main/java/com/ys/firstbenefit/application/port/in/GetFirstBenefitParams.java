@@ -1,6 +1,6 @@
 package com.ys.firstbenefit.application.port.in;
 
-import com.ys.firstbenefit.domain.SelfValidating;
+import com.ys.infra.utils.SelfValidating;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;

@@ -1,4 +1,4 @@
-package com.ys.firstbenefit.adapter.in.model;
+package com.ys.infra.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,5 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class ApiErrorResponse {
 
+    int status;
     String message;
 }
+

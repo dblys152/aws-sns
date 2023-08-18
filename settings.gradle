@@ -1,6 +1,6 @@
 rootProject.name = 'sns'
 
-include 'infra:message'
+include 'infra'
 include 'refs:user'
 
 include 'order:order-domain'
