@@ -1,8 +1,8 @@
 package com.ys.firstbenefit.adapter.out;
 
-import com.ys.firstbenefit.application.exception.OrderNotFoundException;
 import com.ys.firstbenefit.application.port.out.LoadOrderWebPort;
 import com.ys.firstbenefit.application.port.out.ResponseModel;
+import com.ys.infra.exception.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +19,10 @@ public class OrderWebAdapter implements LoadOrderWebPort {
         ResponseEntity<ResponseModel<ResponseModel.OrderModel>> response
                 = orderWebFeignClient.get(orderId);
 
-        if (response.getStatusCode().equals(HttpStatus.OK)) {
-            return response.getBody().getData();
-        } else {
-            throw new OrderNotFoundException("Order를 찾을 수 없습니다.");
+        if (!response.getStatusCode().equals(HttpStatus.OK)) {
+            throw new BadRequestException("Order를 찾을 수 없습니다.");
         }
+
+        return response.getBody().getData();
     }
 }

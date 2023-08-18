@@ -4,6 +4,7 @@ import com.ys.firstbenefit.application.port.out.LoadOrderWebPort;
 import com.ys.firstbenefit.application.port.out.ResponseModel;
 import com.ys.firstbenefit.domain.CreateFirstBenefitCommand;
 import com.ys.firstbenefit.domain.FirstBenefitType;
+import com.ys.infra.utils.CommandFactory;
 import com.ys.refs.user.domain.UserId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

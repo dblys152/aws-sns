@@ -1,9 +1,10 @@
 package com.ys.secondbenefit.application.service;
 
+import com.ys.infra.utils.CommandFactory;
 import com.ys.refs.user.domain.UserId;
 import com.ys.secondbenefit.application.event.OrderCompletedEvent;
-import com.ys.secondbenefit.domain.CreateSecondBenefitCommand;
 import com.ys.secondbenefit.application.port.in.CreateSecondBenefitUseCase;
+import com.ys.secondbenefit.domain.CreateSecondBenefitCommand;
 import com.ys.secondbenefit.domain.SecondBenefitType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

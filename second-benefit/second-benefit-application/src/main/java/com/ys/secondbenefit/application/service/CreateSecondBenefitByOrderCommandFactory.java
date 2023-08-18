@@ -1,16 +1,17 @@
 package com.ys.secondbenefit.application.service;
 
+import com.ys.infra.utils.CommandFactory;
 import com.ys.refs.user.domain.UserId;
-import com.ys.secondbenefit.domain.CreateSecondBenefitCommand;
 import com.ys.secondbenefit.application.port.out.LoadOrderWebPort;
 import com.ys.secondbenefit.application.port.out.ResponseModel;
+import com.ys.secondbenefit.domain.CreateSecondBenefitCommand;
 import com.ys.secondbenefit.domain.SecondBenefitType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class CreateSecondBenefitByOrderCommandFactory implements CommandFactory<String, CreateSecondBenefitCommand>{
+public class CreateSecondBenefitByOrderCommandFactory implements CommandFactory<String, CreateSecondBenefitCommand> {
 
     private static final SecondBenefitType ORDER_TYPE = SecondBenefitType.ORDER;
 

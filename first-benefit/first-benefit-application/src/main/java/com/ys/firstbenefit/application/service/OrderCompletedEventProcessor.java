@@ -3,6 +3,7 @@ package com.ys.firstbenefit.application.service;
 import com.ys.firstbenefit.application.event.OrderCompletedEvent;
 import com.ys.firstbenefit.application.port.in.CreateFirstBenefitUseCase;
 import com.ys.firstbenefit.domain.CreateFirstBenefitCommand;
+import com.ys.infra.utils.CommandFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

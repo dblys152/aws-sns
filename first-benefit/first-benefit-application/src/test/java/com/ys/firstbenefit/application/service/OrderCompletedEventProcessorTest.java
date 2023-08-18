@@ -4,6 +4,7 @@ import com.ys.firstbenefit.application.event.OrderCompletedEvent;
 import com.ys.firstbenefit.application.port.in.CreateFirstBenefitUseCase;
 import com.ys.firstbenefit.domain.CreateFirstBenefitCommand;
 import com.ys.firstbenefit.domain.FirstBenefitType;
+import com.ys.infra.utils.CommandFactory;
 import com.ys.refs.user.domain.UserId;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

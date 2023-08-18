@@ -1,7 +1,8 @@
 package com.ys.secondbenefit.adapter.in;
 
+import com.ys.infra.exception.BadRequestException;
+import com.ys.infra.exception.UnauthorizedException;
 import com.ys.infra.utils.ApiErrorResponse;
-import com.ys.secondbenefit.application.exception.OrderNotFoundException;
 import jakarta.servlet.ServletException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -19,9 +20,9 @@ import java.util.NoSuchElementException;
 @Slf4j
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(OrderNotFoundException.class)
-    public ResponseEntity handleOrderNotFoundException(OrderNotFoundException ex) {
-        log.error("OrderNotFoundException", ex);
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity handleBadRequestException(BadRequestException ex) {
+        log.error("BadRequestException", ex);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 new ApiErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage()));
     }
@@ -54,6 +55,20 @@ public class GlobalExceptionHandler {
                 new ApiErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage()));
     }
 
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity handleUnauthorizedException(UnauthorizedException ex) {
+        log.error("UnauthorizedException", ex);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                new ApiErrorResponse(HttpStatus.UNAUTHORIZED.value(), ex.getMessage()));
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity handleNoSuchElementException(NoSuchElementException ex) {
+        log.error("NoSuchElementException", ex);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                new ApiErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage()));
+    }
+
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity handleConstraintViolationException(ConstraintViolationException ex) {
         log.error("ConstraintViolationException", ex);
@@ -73,13 +88,6 @@ public class GlobalExceptionHandler {
         log.error("IllegalStateException", ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                 new ApiErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage()));
-    }
-
-    @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity handleNoSuchElementException(NoSuchElementException ex) {
-        log.error("NoSuchElementException", ex);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                new ApiErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)

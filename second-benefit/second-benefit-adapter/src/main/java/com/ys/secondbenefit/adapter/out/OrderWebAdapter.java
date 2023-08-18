@@ -1,6 +1,6 @@
 package com.ys.secondbenefit.adapter.out;
 
-import com.ys.secondbenefit.application.exception.OrderNotFoundException;
+import com.ys.infra.exception.BadRequestException;
 import com.ys.secondbenefit.application.port.out.LoadOrderWebPort;
 import com.ys.secondbenefit.application.port.out.ResponseModel;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +19,11 @@ public class OrderWebAdapter implements LoadOrderWebPort {
         ResponseEntity<ResponseModel<ResponseModel.OrderModel>> response
                 = orderWebFeignClient.get(orderId);
 
-        if (response.getStatusCode().equals(HttpStatus.OK)) {
-            return response.getBody().getData();
-        } else {
-            throw new OrderNotFoundException("Order를 찾을 수 없습니다.");
+        if (!response.getStatusCode().equals(HttpStatus.OK)) {
+            throw new BadRequestException("Order를 찾을 수 없습니다.");
+
         }
+
+        return response.getBody().getData();
     }
 }
