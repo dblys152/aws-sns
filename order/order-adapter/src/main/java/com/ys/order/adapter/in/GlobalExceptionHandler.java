@@ -1,7 +1,6 @@
-package com.ys.secondbenefit.adapter.in;
+package com.ys.order.adapter.in;
 
 import com.ys.infra.utils.ApiErrorResponse;
-import com.ys.secondbenefit.application.exception.OrderNotFoundException;
 import jakarta.servlet.ServletException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -18,13 +17,6 @@ import java.util.NoSuchElementException;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
-
-    @ExceptionHandler(OrderNotFoundException.class)
-    public ResponseEntity handleOrderNotFoundException(OrderNotFoundException ex) {
-        log.error("OrderNotFoundException", ex);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                new ApiErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage()));
-    }
 
     @ExceptionHandler(ServletException.class)
     public ResponseEntity handleServletException(ServletException ex) {

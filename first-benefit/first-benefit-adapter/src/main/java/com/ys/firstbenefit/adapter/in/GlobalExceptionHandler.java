@@ -1,85 +1,91 @@
 package com.ys.firstbenefit.adapter.in;
 
-import com.ys.firstbenefit.adapter.in.model.ApiErrorResponse;
 import com.ys.firstbenefit.application.exception.OrderNotFoundException;
+import com.ys.infra.utils.ApiErrorResponse;
+import jakarta.servlet.ServletException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.http.converter.HttpMessageConversionException;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import org.webjars.NotFoundException;
 
-import java.security.InvalidParameterException;
 import java.util.NoSuchElementException;
 
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({MissingServletRequestParameterException.class, MethodArgumentTypeMismatchException.class})
-    public ResponseEntity handleParameterException(Exception ex) {
-        log.error(String.format("Request parameters exception message : %s", ex.getMessage()));
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                new ApiErrorResponse(ex.getMessage()));
-    }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        log.error(String.format("MethodArgumentNotValidException message : %s", ex.getMessage()));
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                new ApiErrorResponse(ex.getMessage()));
-    }
-
-    @ExceptionHandler(InvalidParameterException.class)
-    public ResponseEntity handleInvalidParameterException(InvalidParameterException ex) {
-        log.error(String.format("InvalidParameterException message : %s", ex.getMessage()));
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                new ApiErrorResponse(ex.getMessage()));
-    }
-
-    @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity handleNoSuchElementException(NoSuchElementException ex) {
-        log.error(String.format("NoSuchElementException message : %s", ex.getMessage()));
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                new ApiErrorResponse(ex.getMessage()));
-    }
-
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity handleNotFoundException(NotFoundException ex) {
-        log.error(String.format("NotFoundException message : %s", ex.getMessage()));
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                new ApiErrorResponse(ex.getMessage()));
-    }
-
     @ExceptionHandler(OrderNotFoundException.class)
     public ResponseEntity handleOrderNotFoundException(OrderNotFoundException ex) {
-        log.error(String.format("OrderNotFoundException message : %s", ex.getMessage()));
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                new ApiErrorResponse(ex.getMessage()));
+        log.error("OrderNotFoundException", ex);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ApiErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage()));
+    }
+
+    @ExceptionHandler(ServletException.class)
+    public ResponseEntity handleServletException(ServletException ex) {
+        log.error("ServletException", ex);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ApiErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage()));
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
+        log.error("MethodArgumentTypeMismatchException", ex);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ApiErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage()));
+    }
+
+    @ExceptionHandler(HttpMessageConversionException.class)
+    public ResponseEntity handleHttpMessageConversionException(HttpMessageConversionException ex) {
+        log.error("HttpMessageConversionException", ex);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ApiErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage()));
+    }
+
+    @ExceptionHandler(BindException.class)
+    public ResponseEntity handleBindException(BindException ex) {
+        log.error("BindException", ex);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ApiErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage()));
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity handleConstraintViolationException(ConstraintViolationException ex) {
-        log.error(String.format("ConstraintViolationException message : %s", ex.getMessage()));
+        log.error("ConstraintViolationException", ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiErrorResponse(ex.getMessage()));
+                new ApiErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage()));
     }
 
-    @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity handleNullPointerException(NullPointerException ex) {
-        log.error(String.format("NullPointerException message : %s", ex.getMessage()));
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity handleIllegalArgumentException(IllegalArgumentException ex) {
+        log.error("IllegalArgumentException", ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiErrorResponse(ex.getMessage()));
+                new ApiErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage()));
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity handleIllegalStateException(IllegalStateException ex) {
+        log.error("IllegalStateException", ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                new ApiErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage()));
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity handleNoSuchElementException(NoSuchElementException ex) {
+        log.error("NoSuchElementException", ex);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                new ApiErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity handleException(Exception ex) {
-        log.error(String.format("Exception message : %s", ex.getMessage()));
+        log.error("Exception", ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                new ApiErrorResponse(ex.getMessage()));
+                new ApiErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage()));
     }
 }
